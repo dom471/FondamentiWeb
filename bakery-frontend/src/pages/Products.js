@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import "./Products.css";
 import { CartContext } from "../context/CartContext";
 import { getProductImage } from "../utils/productImages";
+import API_URL from "../config";
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -9,7 +10,7 @@ function Products() {
   const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
-    fetch(`${API_URL}/api/auth/login`)
+    fetch(`${API_URL}/api/products`)
       .then((res) => res.json())
       .then((data) => {
         const normalized = data.map((product) => {
