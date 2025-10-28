@@ -9,7 +9,7 @@ function Products() {
   const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/products")
+    fetch(`${API_URL}/api/auth/login`)
       .then((res) => res.json())
       .then((data) => {
         const normalized = data.map((product) => {
