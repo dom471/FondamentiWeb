@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import io from "socket.io-client";
 import "./AdminOrders.css";
-
-const socket = io("http://localhost:5000");
+import API_URL from "../config";
+const socket = io(`${API_URL}/api/auth/login`);
 
 function AdminOrders() {
   const { user, getToken } = useContext(AuthContext);
@@ -15,7 +15,7 @@ function AdminOrders() {
   useEffect(() => {
     if (!user || (user.role !== "owner" && user.role !== "worker")) return;
 
-    fetch("http://localhost:5000/api/orders", {
+    fetch(`${API_URL}/api/auth/login`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -40,7 +40,7 @@ function AdminOrders() {
 
   const handlePaid = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/orders/${id}/paid`, {
+      await fetch(`${API_URL}/api/orders/${id}/paid`, {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -52,7 +52,7 @@ function AdminOrders() {
 
   const handleCancel = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/orders/${id}/cancel`, {
+      await fetch(`${API_URL}/api/orders/${id}/cancel`, {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -112,3 +112,4 @@ function AdminOrders() {
 }
 
 export default AdminOrders;
+
