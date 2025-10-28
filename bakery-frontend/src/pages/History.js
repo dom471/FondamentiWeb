@@ -2,8 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import io from "socket.io-client";
 import "./History.css";
+import API_URL from "../config";
 
-const socket = io("http://localhost:5000");
+const socket = io(`${API_URL}`);
 
 function History() {
   const { user, getToken } = useContext(AuthContext);
@@ -41,7 +42,7 @@ function History() {
 
     const token = getToken();
 
-    fetch("http://localhost:5000/api/orders/history", {
+    fetch(`${API_URL}/api/orders/history`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
