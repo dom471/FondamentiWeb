@@ -15,7 +15,7 @@ function AdminOrders() {
   useEffect(() => {
     if (!user || (user.role !== "owner" && user.role !== "worker")) return;
 
-    fetch(`${API_URL}/api/auth/login`, {
+    fetch(`${API_URL}/api/orders`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -112,4 +112,5 @@ function AdminOrders() {
 }
 
 export default AdminOrders;
+
 
