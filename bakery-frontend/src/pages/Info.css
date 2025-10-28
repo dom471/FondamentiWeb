@@ -1,0 +1,15 @@
+.about-section {
+  max-width: 900px;       /* allarga la sezione */
+  margin: 60px auto;      /* centra la sezione orizzontalmente */
+  padding: 0 40px;        /* spazio ai lati */
+  line-height: 1.8;       /* aumenta la spaziatura tra le righe */
+  text-align: justify;    /* giustifica il testo (bordi allineati) */
+  font-size: 1.1rem;
+  color: #333;
+}
+.about-section h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
