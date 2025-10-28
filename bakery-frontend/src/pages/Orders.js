@@ -4,6 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { getProductImage } from "../utils/productImages";
 import "./Orders.css";
+import API_URL from "../config";
 
 function Orders() {
   const { cart, removeFromCart, clearCart } = useContext(CartContext);
@@ -47,7 +48,7 @@ function Orders() {
         total,
       };
 
-      const response = await fetch(`${API_URL}/api/auth/login`, {
+      const response = await fetch(`${API_URL}/api/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
