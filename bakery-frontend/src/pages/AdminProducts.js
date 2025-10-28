@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { getProductImage } from "../utils/productImages";
 import "./AdminProducts.css";
+import API_URL form "../config";
 
 const EMPTY_PRODUCT = { name: "", price: "", image: "" };
 
@@ -13,7 +14,7 @@ function AdminProducts() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/products")
+    fetch(`${API_URL}/api/products`)
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.error("Errore nel caricamento prodotti:", err));
@@ -54,7 +55,7 @@ function AdminProducts() {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/api/products", {
+      const res = await fetch(`${API_URL}/api/products`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -78,7 +79,7 @@ function AdminProducts() {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:5000/api/products/${id}`, { method: "DELETE" });
+    await fetch(`${API_URL}/api/products/${id}`, { method: "DELETE" });
     setProducts((prev) => prev.filter((p) => p._id !== id));
   };
 
