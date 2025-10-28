@@ -3,7 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import io from "socket.io-client";
 import "./AdminOrders.css";
 import API_URL from "../config";
-const socket = io(`${API_URL}/api/auth/login`);
+const socket = io(`${API_URL}`);
 
 function AdminOrders() {
   const { user, getToken } = useContext(AuthContext);
@@ -112,5 +112,6 @@ function AdminOrders() {
 }
 
 export default AdminOrders;
+
 
 
