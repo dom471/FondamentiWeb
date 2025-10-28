@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { getProductImage } from "../utils/productImages";
 import "./AdminProducts.css";
-import API_URL form "../config";
+import API_URL from "../config";
 
 const EMPTY_PRODUCT = { name: "", price: "", image: "" };
 
