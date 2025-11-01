@@ -1,4 +1,3 @@
-// IMPORTAZIONI
 import dotenv from "dotenv"
 dotenv.config();
 
@@ -145,6 +144,7 @@ mongoose
     );
   })
   .catch((err) => console.error("Errore connessione DB:", err));
+
 
 
 
