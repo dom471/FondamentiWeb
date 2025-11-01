@@ -86,15 +86,14 @@ app.post("/api/orders", verifyToken, async (req, res) => {
     await savedOrder.populate("userId", "name email role");
 
     // Cerca il nome dell'utente per la notifica
-    /*let userName = "Utente sconosciuto";
+    let userName = "Utente sconosciuto";
     try {
       const user = await User.findById(userId);
       if (user) userName = user.name || user.email;
     } catch (err) {
       console.warn("Utente non trovato:", err.message);
-    }*/
-    const user = await User.findById(userId);
-    const userName = user.name;
+    }
+   
     // Messaggio Telegram
     const prodotti = items.map(i => `${i.name} × ${i.quantity}`).join("\n");
     const text = `
@@ -146,5 +145,6 @@ mongoose
     );
   })
   .catch((err) => console.error("Errore connessione DB:", err));
+
 
 
