@@ -116,12 +116,12 @@ ${new Date().toLocaleString()}
 
     console.log("Notifica Telegram inviata con successo!");
 
-    // Aggiorna in tempo reale l’interfaccia dell’owner
+    // Aggiorna in tempo reale l’interfaccia dell’admin
     io.emit("newOrder", savedOrder);
 
     res.status(201).json(savedOrder);
   } catch (err) {
-    console.error("Errore creazione ordine:", err);
+    console.error("Errore nella creazione dell'ordine:", err);
     res.status(500).json({ error: "Errore durante il salvataggio dell'ordine" });
   }
 });
@@ -145,6 +145,7 @@ mongoose
     );
   })
   .catch((err) => console.error("Errore connessione DB:", err));
+
 
 
 
