@@ -32,9 +32,9 @@ function Header() {
                   ? user.name.split(" ")[0]
                   : user.name?.name || "Utente"
               }
-              {user.role === "owner" && " admin"}
-              {user.role === "worker" && " lavoratore"}
-              {user.role === "customer" && " (consumer)"}
+              {user.role === "owner" && " (admin)"}
+              {user.role === "worker" && " (lavoratore)"}
+              {user.role === "customer" && " (cliente)"}
             </span>
 
             <button onClick={handleLogout}>Logout</button>
