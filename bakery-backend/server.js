@@ -25,12 +25,12 @@ app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: true, limit: "5mb" }));
 
 // TELEGRAM BOT (webhook)
-// Qui i dati veri:
+
 const BOT_TOKEN = "7780029168:AAHNzlhy8TeDLovh47It5P0J-fMVb1OaTdo";
 const CHAT_ID = "547481447";
 
 
-// SOCKET.IO (real-time updates)
+// SOCKET.IO (aggiornamenti real-time)
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
@@ -67,7 +67,7 @@ async function createAdminUser() {
 createAdminUser();
 
 
-// ROTTA PERSONALIZZATA: CREAZIONE ORDINE
+// ROTTA PER LA CREAZIONE DI UN ORDINE
 app.post("/api/orders", verifyToken, async (req, res) => {
   try {
     const { items, total } = req.body;
@@ -144,6 +144,7 @@ mongoose
     );
   })
   .catch((err) => console.error("Errore connessione DB:", err));
+
 
 
 
