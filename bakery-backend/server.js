@@ -47,6 +47,7 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => console.log("Client disconnesso:", socket.id));
 });
 
+//All'avvio del server.js controlliamo sempre che esista già un utente admin nel database, se non esiste ne creiamo uno di default per evitare di inserirne uno manualmente, per comodità
 async function createAdminUser() {
   const existingAdmin = await User.findOne({ email: "admin@gmail.com" });
   if (!existingAdmin) {
@@ -85,13 +86,13 @@ app.post("/api/orders", verifyToken, async (req, res) => {
     await savedOrder.populate("userId", "name email role");
 
     // Cerca il nome dell'utente per la notifica
-    let userName = "Utente sconosciuto";
+    /*let userName = "Utente sconosciuto";
     try {
       const user = await User.findById(userId);
       if (user) userName = user.name || user.email;
     } catch (err) {
       console.warn("Utente non trovato:", err.message);
-    }
+    }*/
 
     // Messaggio Telegram
     const prodotti = items.map(i => `${i.name} × ${i.quantity}`).join("\n");
@@ -144,3 +145,4 @@ mongoose
     );
   })
   .catch((err) => console.error("Errore connessione DB:", err));
+
