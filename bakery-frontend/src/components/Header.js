@@ -24,7 +24,7 @@ function Header() {
         {(user?.role === "owner" || user?.role === "worker") && <Link to="/admin/orders">Visualizzazione Ordini</Link>}
         {user?.role === "worker" && <Link to="/ricette">Ricettario</Link>}
         {user ? (
-          <>
+         // <>
             {user.role === "owner" && <Link to="/history">Resoconto</Link>}
             <span style={{ margin: "15px", color: "#a04f16ff" }}>
               Ciao {
@@ -38,7 +38,7 @@ function Header() {
             </span>
 
             <button onClick={handleLogout}>Logout</button>
-          </>
+         // </>
         ) : (
           <>
             <Link to="/login">Login</Link>
