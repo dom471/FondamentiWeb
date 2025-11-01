@@ -21,9 +21,7 @@ function Header() {
         <Link to="/orders">Carrello</Link>
         <Link to="/info">Info</Link>
         {user?.role === "owner" && <Link to="/admin">Gestione prodotti</Link>}
-        {user && (user.role === "owner" || user.role === "worker") && (
-          <Link to="/admin/orders">Visualizzazione Ordini</Link>
-        )}
+        {(user?.role === "owner" || user?.role === "worker") && <Link to="/admin/orders">Visualizzazione Ordini</Link>}
         {user?.role === "worker" && <Link to="/ricette">Ricettario</Link>}
         {user ? (
           <>
