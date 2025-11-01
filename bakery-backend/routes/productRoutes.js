@@ -47,7 +47,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// DELETE /api/products/:id → elimina un prodotto
+// DELETE /api/products/:id elimina un prodotto
 router.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -57,5 +57,6 @@ router.delete("/:id", async (req, res) => {
     res.status(400).json({ error: "Errore nell'eliminazione del prodotto" });
   }
 });
+
 
 export default router;
