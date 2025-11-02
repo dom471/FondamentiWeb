@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  // 🔹 LOGIN → salva token in base al ruolo
+  //LOGIN → salva token in base al ruolo
   const login = (token) => {
     if (!token) return;
 
@@ -47,13 +47,12 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("token_customer", token);
       }
 
-      console.log("Login riuscito:", decoded);
     } catch (err) {
       console.error("Errore parsing token:", err);
     }
   };
 
-  // 🔹 LOGOUT → cancella solo il token del ruolo corrente
+  //LOGOUT → cancella solo il token del ruolo corrente
   const logout = () => {
     if (user?.role === "owner") {
       localStorage.removeItem("token_owner");
@@ -63,10 +62,9 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem("token_customer");
     }
     setUser(null);
-    console.log("🚪 Logout eseguito per:", user?.role);
   };
 
-  // 🔹 Restituisce il token corretto in base all’utente
+  //Restituisce il token corretto in base all’utente
   const getToken = () => {
     if (user?.role === "owner") return localStorage.getItem("token_owner");
     if (user?.role === "worker") return localStorage.getItem("token_worker");
@@ -81,3 +79,4 @@ export const AuthProvider = ({ children }) => {
   );
 
 };
+
