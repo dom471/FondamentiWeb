@@ -7,28 +7,20 @@ export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
 
   const addToCart = (product) => {
-    const fallback = getProductImage(product.name);
-    const imageSource = fallback || product.image || "";
-    const productWithImage = {
-      ...product,
-      image: imageSource,
-    };
-
-    const existing = cart.find((item) => item._id === productWithImage._id);
+    const existing = cart.find((item) => item._id === product._id);
     if (existing) {
       setCart(
         cart.map((item) =>
-          item._id === productWithImage._id
+          item._id === product._id
             ? {
                 ...item,
                 quantity: item.quantity + 1,
-                image: productWithImage.image,
               }
             : item
         )
       );
     } else {
-      setCart([...cart, { ...productWithImage, quantity: 1 }]);
+      setCart([...cart, { ...product, quantity: 1 }]);
     }
   };
 
@@ -44,4 +36,5 @@ export function CartProvider({ children }) {
     </CartContext.Provider>
   );
 }
+
 
