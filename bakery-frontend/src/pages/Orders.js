@@ -2,7 +2,6 @@
 import { CartContext } from "../context/CartContext";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { getProductImage } from "../utils/productImages";
 import "./Orders.css";
 import API_URL from "../config";
 
@@ -36,13 +35,12 @@ function Orders() {
     try {
       const order = {
         items: cart.map((item) => {
-          const fallback = getProductImage(item.name);
           return {
             productId: item._id,
             name: item.name,
             quantity: item.quantity,
             price: item.price,
-            image: fallback || item.image || "",
+            image: item.image || "",
           };
         }),
         total,
