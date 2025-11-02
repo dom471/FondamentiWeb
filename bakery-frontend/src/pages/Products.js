@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import "./Products.css";
 import { CartContext } from "../context/CartContext";
-import { getProductImage } from "../utils/productImages";
 import API_URL from "../config";
 
 function Products() {
@@ -14,10 +13,9 @@ function Products() {
       .then((res) => res.json())
       .then((data) => {
         const normalized = data.map((product) => {
-          const fallback = getProductImage(product.name);
           return {
             ...product,
-            image: fallback || product.image || "",
+            image: product.image || "",
           };
         });
         setProducts(normalized);
