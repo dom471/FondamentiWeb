@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  //LOGIN → salva token in base al ruolo
+  //LOGIN: salva token in base al ruolo
   const login = (token) => {
     if (!token) return;
 
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  //LOGOUT → cancella solo il token del ruolo corrente
+  //LOGOUT: cancella solo il token del ruolo corrente
   const logout = () => {
     if (user?.role === "owner") {
       localStorage.removeItem("token_owner");
@@ -79,4 +79,5 @@ export const AuthProvider = ({ children }) => {
   );
 
 };
+
 
