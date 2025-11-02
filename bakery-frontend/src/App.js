@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Info from "./pages/Info";
-import "./styles/global.css";
+import "./global.css";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Products from "./pages/Products";
