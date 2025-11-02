@@ -2,7 +2,6 @@ import express from "express";
 import Order from "../models/Order.js";
 import User from "../models/User.js";
 import { verifyToken } from "../middleware/authMiddleware.js";
-import fetch from "node-fetch";
 
 const router = express.Router();
 
