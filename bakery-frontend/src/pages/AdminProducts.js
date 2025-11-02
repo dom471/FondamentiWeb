@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { getProductImage } from "../utils/productImages";
 import "./AdminProducts.css";
 import API_URL from "../config";
 
@@ -19,10 +18,6 @@ function AdminProducts() {
       .then((data) => setProducts(data))
       .catch((err) => console.error("Errore nel caricamento prodotti:", err));
   }, []);
-
-  if (!user || user.role !== "owner") {
-    return <p style={{ textAlign: "center" }}>Accesso negato: solo il proprietario puo accedere.</p>;
-  }
 
   const handleImageFile = (event) => {
     const file = event.target.files?.[0];
@@ -110,8 +105,7 @@ function AdminProducts() {
 
       <ul className="product-list">
         {products.map((p) => {
-          const fallback = getProductImage(p.name);
-          const imageSrc = fallback || p.image || "";
+          const imageSrc = p.image || "";
           return (
             <li key={p._id}>
               <div className="product-list-left">
