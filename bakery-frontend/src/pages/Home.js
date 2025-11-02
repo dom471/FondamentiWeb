@@ -1,10 +1,9 @@
-import React from "react";
 import { Grid, Card, CardMedia, CardContent, Typography, Container } from "@mui/material";
-import paneCasereccio from "../assets/pane-casereccio.jpg";
-import pizzaMargherita from "../assets/pizza-margherita.jpg";
-import paneIntegrale from "../assets/pane-integrale.jpg";
-import cornettoCrema from "../assets/cornetto-crema.jpg";
-import focaccia from "../assets/Focaccia-barese.jpg";
+import paneCasereccio from "../immaginiHome/pane-casereccio.jpg";
+import pizzaMargherita from "../immaginiHome/pizza-margherita.jpg";
+import paneIntegrale from "../immaginiHome/pane-integrale.jpg";
+import cornettoCrema from "../immaginiHome/cornetto-crema.jpg";
+import focaccia from "../immaginiHome/Focaccia-barese.jpg";
 
 const products = [
   {
@@ -80,3 +79,4 @@ function Home() {
 }
 
 export default Home;
+
