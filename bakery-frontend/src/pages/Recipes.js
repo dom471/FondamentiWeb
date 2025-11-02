@@ -1,4 +1,3 @@
-import React from "react";
 import "./Recipes.css";
 
 const recipes = [
@@ -72,5 +71,6 @@ function Recipes() {
     </div>
   );
 }
+
 
 export default Recipes;
