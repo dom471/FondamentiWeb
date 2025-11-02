@@ -62,13 +62,6 @@ function AdminOrders() {
     }
   };
 
-  if (!user)
-    return (
-      <p style={{ textAlign: "center", marginTop: "2rem" }}>
-        Devi effettuare il login per visualizzare gli ordini.
-      </p>
-    );
-
   if (loading)
     return <p style={{ textAlign: "center" }}>Caricamento ordini...</p>;
 
@@ -77,7 +70,7 @@ function AdminOrders() {
 
   return (
     <div className="admin-orders">
-      <h2>Tutte le prenotazioni (in tempo reale)</h2>
+      <h2>Prenotazioni in tempo reale</h2>
 
       {orders.map((order) => (
         <div key={order._id} className="order-card">
@@ -112,6 +105,7 @@ function AdminOrders() {
 }
 
 export default AdminOrders;
+
 
 
 
