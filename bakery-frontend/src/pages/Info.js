@@ -1,4 +1,3 @@
-import React from "react";
 import './Info.css';
 
 function Info() {
@@ -29,5 +28,6 @@ function Info() {
 </section>
   );
 }
+
 
 export default Info;
