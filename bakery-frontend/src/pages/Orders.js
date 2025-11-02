@@ -86,7 +86,7 @@ function Orders() {
 
       <ul className="order-list">
         {cart.map((item) => {
-          const imageSrc = getProductImage(item.name) || item.image || "";
+          const imageSrc = item.image || "";
           return (
             <li key={item._id} className="order-item">
               <div className="order-item-left">
