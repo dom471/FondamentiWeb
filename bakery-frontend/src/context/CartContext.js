@@ -5,7 +5,6 @@ export const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
-  console.log("Cart aggiornato:", cart);
 
   const addToCart = (product) => {
     const fallback = getProductImage(product.name);
@@ -45,3 +44,4 @@ export function CartProvider({ children }) {
     </CartContext.Provider>
   );
 }
+
