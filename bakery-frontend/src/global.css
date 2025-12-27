@@ -2,18 +2,19 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #fffaf3;
-  color: #333;
+  background-color: #f7f3ef;
+  color: #1a1a1a;
 }
 
 a {
   text-decoration: none;
-  color: #8b4513;
+  color: #ff7a00;
   margin: 0 10px;
 }
 
 a:hover {
   text-decoration: underline;
+  color: #e66a00
 }
 
 main {
