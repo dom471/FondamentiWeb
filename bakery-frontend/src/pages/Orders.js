@@ -55,14 +55,22 @@ function Orders() {
         body: JSON.stringify(order),
       });
 
-      const data = await response.json();
+      const responseText = await response.text();
+      let data = null;
+      if (responseText) {
+        try {
+          data = JSON.parse(responseText);
+        } catch {
+          data = null;
+        }
+      }
 
       if (response.ok) {
         setMessage("Prenotazione salvata con successo!");
         clearCart();
       } else {
         setMessage(
-          "Errore: " + (data.error || "Impossibile salvare la prenotazione")
+          "Errore: " + (data?.error || "Impossibile salvare la prenotazione")
         );
       }
     } catch (err) {
