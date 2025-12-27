@@ -6,7 +6,7 @@ import API_URL from "../config";
 function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, syncCartWithProducts } = useContext(CartContext);
 
   useEffect(() => {
     fetch(`${API_URL}/api/products`)
@@ -19,6 +19,7 @@ function Products() {
           };
         });
         setProducts(normalized);
+        syncCartWithProducts(normalized);
         setLoading(false);
       })
       .catch((err) => {

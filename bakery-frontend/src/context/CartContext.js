@@ -24,6 +24,11 @@ export function CartProvider({ children }) {
     }
   };
 
+  const syncCartWithProducts = (products) => {
+    const ids = new Set(products.map((p) => p._id));
+    setCart((prev) => prev.filter((item) => ids.has(item._id)));
+  };
+
   const removeFromCart = (id) => {
     setCart(cart.filter((item) => item._id !== id));
   };
@@ -31,7 +36,7 @@ export function CartProvider({ children }) {
   const clearCart = () => setCart([]);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider value={{ cart, addToCart, syncCartWithProducts, removeFromCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );
