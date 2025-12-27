@@ -14,6 +14,7 @@ import productRoutes from "./routes/productRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import Order from "./models/Order.js";
+import Product from "./models/Product.js";
 import User from "./models/User.js";
 import bcrypt from "bcryptjs"
 
@@ -77,6 +78,28 @@ app.post("/api/orders", verifyToken, async (req, res) => {
       return res
         .status(401)
         .json({ error: "Utente sconosciuto. Effettua il login per prenotare." });
+    }
+
+    // Verifica che tutti i prodotti esistano ancora nel DB
+    const missingProducts = [];
+    if (Array.isArray(items)) {
+      for (const it of items) {
+        if (it.productId) {
+          try {
+            const p = await Product.findById(it.productId).select("_id name");
+            if (!p) missingProducts.push(it.name || it.productId);
+          } catch (e) {
+            missingProducts.push(it.name || it.productId);
+          }
+        }
+      }
+    }
+
+    if (missingProducts.length > 0) {
+      return res.status(400).json({
+        error: "Alcuni prodotti non sono più disponibili",
+        missing: missingProducts,
+      });
     }
 
     // Salva l'ordine nel database
