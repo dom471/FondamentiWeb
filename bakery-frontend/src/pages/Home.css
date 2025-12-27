@@ -1,0 +1,38 @@
+.home {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+/* Titolo principale */
+.home__title {
+  margin-bottom: 16px;
+}
+
+/* Sottotitolo */
+.home__subtitle {
+  margin-bottom: 40px;
+}
+
+/* Card prodotto */
+.home__card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease;
+}
+
+.home__card:hover {
+  transform: scale(1.05);
+}
+
+/* Immagine card */
+.home__cardImage {
+  object-fit: cover;
+}
+
+/* Titolo prodotto */
+.home__cardTitle {
+  font-weight: 600;
+}

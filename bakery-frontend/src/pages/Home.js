@@ -4,6 +4,8 @@ import pizzaMargherita from "../immaginiHome/pizza-margherita.jpg";
 import paneIntegrale from "../immaginiHome/pane-integrale.jpg";
 import cornettoCrema from "../immaginiHome/cornetto-crema.jpg";
 import focaccia from "../immaginiHome/Focaccia-barese.jpg";
+import "./Home.css";
+
 
 const products = [
   {
@@ -30,8 +32,12 @@ const products = [
 
 function Home() {
   return (
-    <Container sx={{ py: 5 }}>
-      <Typography variant="h3" align="center" gutterBottom>
+    <Container className="home">
+      <Typography
+        variant="h3"
+        align="center"
+        className="home__title"
+      >
         Benvenuto nel Panificio da Stefàno!
       </Typography>
 
@@ -39,8 +45,7 @@ function Home() {
         variant="h4"
         align="center"
         color="text.secondary"
-        paragraph
-        sx={{ mb: 5 }}
+        className="home__subtitle"
       >
         I nostri best seller:
       </Typography>
@@ -48,25 +53,20 @@ function Home() {
       <Grid container spacing={4} justifyContent="center">
         {products.map((item) => (
           <Grid item key={item.name} xs={12} sm={6} md={3}>
-            <Card
-              sx={{
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-                transition: "transform 0.2s",
-                "&:hover": { transform: "scale(1.05)" },
-                borderRadius: "16px",
-                boxShadow: 3,
-              }}
-            >
+            <Card className="home__card">
               <CardMedia
                 component="img"
                 height="200"
                 image={item.image}
                 alt={item.name}
+                className="home__cardImage"
               />
-              <CardContent>
-                <Typography variant="h6" align="center">
+              <CardContent className="home__cardContent">
+                <Typography
+                  variant="h6"
+                  align="center"
+                  className="home__cardTitle"
+                >
                   {item.name}
                 </Typography>
               </CardContent>
@@ -79,4 +79,3 @@ function Home() {
 }
 
 export default Home;
-
