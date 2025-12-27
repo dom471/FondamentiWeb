@@ -69,9 +69,26 @@ function Orders() {
         setMessage("Prenotazione salvata con successo!");
         clearCart();
       } else {
-        setMessage(
-          "Errore: " + (data?.error || "Impossibile salvare la prenotazione")
-        );
+        // Se il backend segnala prodotti mancanti, mostriamo quali e li rimuoviamo dal carrello
+        if (response.status === 400 && data?.missing && Array.isArray(data.missing)) {
+          const missing = data.missing;
+          setMessage(
+            "Alcuni prodotti non sono più disponibili: " + missing.join(", ")
+          );
+          // Rimuovi dal carrello i prodotti che risultano mancanti
+          for (const ci of cart) {
+            if (
+              missing.includes(ci._id?.toString()) ||
+              missing.includes(ci.name)
+            ) {
+              removeFromCart(ci._id);
+            }
+          }
+        } else {
+          setMessage(
+            "Errore: " + (data?.error || "Impossibile salvare la prenotazione")
+          );
+        }
       }
     } catch (err) {
       console.error("Errore:", err);
