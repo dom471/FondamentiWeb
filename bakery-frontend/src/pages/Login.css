@@ -9,7 +9,7 @@
 }
 
 .login-container h2 {
-  color: #8b4513;
+  color: #d4a017;
   margin-bottom: 1.5rem;
 }
 
@@ -23,25 +23,25 @@
   display: flex;
   flex-direction: column;
   font-weight: bold;
-  color: #5a3e1b;
+  color: #9c7513;
   text-align: left;
 }
 
 .login-form input {
   padding: 0.5rem;
   border-radius: 5px;
-  border: 1px solid #d2b48c;
+  border: 1px solid #e7b946;
   font-size: 1rem;
   margin-top: 0.3rem;
 }
 
 .login-form input:focus {
-  border-color: #8b4513;
+  border-color: #d4a017;
   outline: none;
 }
 
 .login-form button {
-  background-color: #8b4513;
+  background-color: #d4a017;
   color: white;
   border: none;
   padding: 0.7rem;
@@ -52,7 +52,7 @@
 }
 
 .login-form button:hover {
-  background-color: #a0522d;
+  background-color: #8a6507;
 }
 
 .login-form select {
