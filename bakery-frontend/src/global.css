@@ -8,13 +8,13 @@ body {
 
 a {
   text-decoration: none;
-  color: #ff7a00;
+  color: #f7f3ef;
   margin: 0 10px;
 }
 
 a:hover {
   text-decoration: underline;
-  color: #e66a00
+  color: #e1dbd5;
 }
 
 main {

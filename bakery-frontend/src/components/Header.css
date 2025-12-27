@@ -4,7 +4,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #d4a017;
+  color: #f7f3ef;
 }
 
 .header h1 {
@@ -12,12 +12,12 @@
 }
 
 .header nav a {
-  color: #d4a017;
-  margin: 0 10px;
+  color: #f7f3ef;
+  margin: 0 15px;
   text-decoration: none;
 }
 
 .header nav a:hover {
   text-decoration: underline;
-  color: #b88a14;
+  color: #e1dbd5;
 }
