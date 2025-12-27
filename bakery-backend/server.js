@@ -29,11 +29,6 @@ app.use(express.urlencoded({ extended: true, limit: "5mb" }));
 
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
-
-//try:
-console.log("BOT_TOKEN defined:", !!BOT_TOKEN);
-console.log("CHAT_ID:", CHAT_ID);
-
 if (!BOT_TOKEN || !CHAT_ID) {
   console.error("Missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID in environment variables");
 }
