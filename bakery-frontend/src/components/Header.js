@@ -25,7 +25,7 @@ function Header() {
         {user ? (
           <>
             {user.role === "owner" && <Link to="/history">Resoconto</Link>}
-            <span style={{ margin: "15px", color: "#a04f16ff" }}>
+            <span style={{ margin: "15px", color: "#f7f3ef" }}>
               Ciao {user.name.split(" ")[0]}
               {user.role === "owner" && " (admin)"}
               {user.role === "worker" && " (lavoratore)"}
