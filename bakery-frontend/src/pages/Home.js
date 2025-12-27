@@ -32,12 +32,8 @@ const products = [
 
 function Home() {
   return (
-    <Container className="home">
-      <Typography
-        variant="h3"
-        align="center"
-        className="home__title"
-      >
+    <Container sx={{ py: 5 }}>
+      <Typography variant="h3" align="center" gutterBottom>
         Benvenuto nel Panificio da Stefàno!
       </Typography>
 
@@ -45,7 +41,8 @@ function Home() {
         variant="h4"
         align="center"
         color="text.secondary"
-        className="home__subtitle"
+        paragraph
+        sx={{ mb: 5 }}
       >
         I nostri best seller:
       </Typography>
@@ -53,20 +50,25 @@ function Home() {
       <Grid container spacing={4} justifyContent="center">
         {products.map((item) => (
           <Grid item key={item.name} xs={12} sm={6} md={3}>
-            <Card className="home__card">
+            <Card
+              sx={{
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                transition: "transform 0.2s",
+                "&:hover": { transform: "scale(1.05)" },
+                borderRadius: "16px",
+                boxShadow: 3,
+              }}
+            >
               <CardMedia
                 component="img"
                 height="200"
                 image={item.image}
                 alt={item.name}
-                className="home__cardImage"
               />
-              <CardContent className="home__cardContent">
-                <Typography
-                  variant="h6"
-                  align="center"
-                  className="home__cardTitle"
-                >
+              <CardContent>
+                <Typography variant="h6" align="center">
                   {item.name}
                 </Typography>
               </CardContent>
@@ -79,3 +81,4 @@ function Home() {
 }
 
 export default Home;
+
