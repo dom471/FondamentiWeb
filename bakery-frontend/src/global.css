@@ -4,10 +4,11 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #1a1a1a;
   background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url("../public/StreetBun-Sfondo.png");
-  background-size: auto;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  min-height: 100vh;
 }
 
 a {
