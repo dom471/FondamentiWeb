@@ -5,7 +5,7 @@ body {
   color: #1a1a1a;
     background:
     linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
-    url("/immaginiHome/StreetBun-Sfondo.png");
+    url("../immaginiHome/StreetBun-Sfondo.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
