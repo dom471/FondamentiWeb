@@ -4,8 +4,6 @@ import pizzaMargherita from "../immaginiHome/pizza-margherita.jpg";
 import paneIntegrale from "../immaginiHome/pane-integrale.jpg";
 import cornettoCrema from "../immaginiHome/cornetto-crema.jpg";
 import focaccia from "../immaginiHome/Focaccia-barese.jpg";
-import "./Home.css";
-
 
 const products = [
   {
