@@ -72,9 +72,16 @@ button:hover {
 }
 
 button.clear {
-  background-color: #d9534f;
+  background-color: #cb1913;
 }
 
 button.clear:hover {
-  background-color: #c9302c;
+  background-color: #981511;
+}
+
+.order-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 1rem;
 }
