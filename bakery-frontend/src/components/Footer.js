@@ -4,7 +4,7 @@ import "./Footer.css";
 function Footer() {
   return (
     <footer>
-      <p>© 2025 Panificio Stefàno — Tutti i diritti riservati</p>
+      <p>© 2025 StreetBun — Tutti i diritti riservati</p>
     </footer>
   );
 }

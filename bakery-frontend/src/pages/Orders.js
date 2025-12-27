@@ -115,12 +115,14 @@ function Orders() {
 
       <h3>Totale: {"\u20AC"} {total.toFixed(2)}</h3>
 
-      <button className="confirm" onClick={handleConfirm}>
-        Conferma prenotazione
-      </button>
-      <button className="clear" onClick={clearCart}>
-        Svuota carrello
-      </button>
+      <div className="order-actions">
+        <button className="confirm" onClick={handleConfirm}>
+          Conferma prenotazione
+        </button>
+        <button className="clear" onClick={clearCart}>
+          Svuota carrello
+        </button>
+      </div>
 
       {message && <p style={{ color: "green", marginTop: "1rem" }}>{message}</p>}
     </div>

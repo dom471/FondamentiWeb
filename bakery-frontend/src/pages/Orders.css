@@ -58,7 +58,7 @@
 }
 
 button {
-  background-color: #8b4513;
+  background-color: #414722;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -68,13 +68,20 @@ button {
 }
 
 button:hover {
-  background-color: #a0522d;
+  background-color: #292d15;
 }
 
 button.clear {
-  background-color: #d9534f;
+  background-color: #cb1913;
 }
 
 button.clear:hover {
-  background-color: #c9302c;
+  background-color: #981511;
+}
+
+.order-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 1rem;
 }

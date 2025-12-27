@@ -45,7 +45,7 @@ function Products() {
             )}
             <h3>{p.name}</h3>
             <p className="price">{"\u20AC"} {Number(p.price).toFixed(2)}</p>
-            <button onClick={() => addToCart(p)}>Aggiungi al carrello</button>
+            <button className="button-cart" onClick={() => addToCart(p)}>Aggiungi al carrello</button>
           </div>
         ))}
       </div>
