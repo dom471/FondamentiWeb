@@ -12,9 +12,7 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <CartProvider>
-        <OrderProvider>
-          <App />
-        </OrderProvider>
+        <App />
       </CartProvider>
     </AuthProvider>
   </React.StrictMode>
