@@ -27,8 +27,11 @@ app.use(express.urlencoded({ extended: true, limit: "5mb" }));
 
 // TELEGRAM BOT (webhook)
 
-const BOT_TOKEN = "7780029168:AAHNzlhy8TeDLovh47It5P0J-fMVb1OaTdo";
-const CHAT_ID = "547481447";
+const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+if (!BOT_TOKEN || !CHAT_ID) {
+  console.error("Missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID in environment variables");
+}
 
 
 // SOCKET.IO (aggiornamenti real-time)
