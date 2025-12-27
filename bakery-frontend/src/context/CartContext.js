@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import { getProductImage } from "../utils/productImages";
 
 export const CartContext = createContext();
 
@@ -36,5 +35,6 @@ export function CartProvider({ children }) {
     </CartContext.Provider>
   );
 }
+
 
 
