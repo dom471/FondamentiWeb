@@ -25,7 +25,7 @@
   border-radius: 10px;
 }
 
-button {
+.button-cart button {
   background-color: #414722;
   color: white;
   border: none;
@@ -36,6 +36,6 @@ button {
   transition: background-color 0.2s;
 }
 
- button:hover {
+.button-cart button:hover {
   background-color: #292d15;
 }

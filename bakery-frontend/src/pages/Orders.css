@@ -58,7 +58,7 @@
 }
 
 button {
-  background-color: #8b4513;
+  background-color: #414722;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -68,7 +68,7 @@ button {
 }
 
 button:hover {
-  background-color: #a0522d;
+  background-color: #292d15;
 }
 
 button.clear {
