@@ -21,6 +21,9 @@ function App() {
   return (
     <Router>
       <Header />
+      <div className="background-container">
+        <img src="/StreetBun-Sfondo.png" alt="Sfondo StreetBun" />
+      </div>
       <main className="content">
         <Routes>
           <Route path="/" element={<Home />} />
