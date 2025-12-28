@@ -66,20 +66,49 @@ function Home() {
         </Typography>
         <Grid container spacing={4} alignItems="center">
           <Grid item xs={12} md={6}>
-            <Typography variant="body1" sx={{ color: 'white', textShadow: '1px 1px 2px rgba(0,0,0,0.8)' }} paragraph>
+            <Typography
+              variant="body1"
+              sx={{
+                color: 'white',
+                textShadow: '1px 1px 2px rgba(0,0,0,0.8)',
+                maxWidth: "38ch",
+                mx: "auto",
+                px: 1,
+              }}
+              paragraph
+            >
               Siamo situati difronte all'ingresso del Campus Universitario in via Edoardo Orabona 4.
             </Typography>
-            <Typography variant="body1" sx={{ color: 'white', textShadow: '1px 1px 2px rgba(0,0,0,0.8)' }} paragraph>
+            <Typography
+              variant="body1"
+              sx={{
+                color: 'white',
+                textShadow: '1px 1px 2px rgba(0,0,0,0.8)',
+                maxWidth: "38ch",
+                mx: "auto",
+                px: 1,
+              }}
+              paragraph
+            >
               Orari di apertura: Lunedì-Venerdì 8:00-20:00, Sabato 8:00-14:00, Domenica chiuso.
             </Typography>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                p: 2,
+                borderRadius: 3,
+                backgroundColor: "rgba(0, 0, 0, 0.25)",
+                boxShadow: "0 12px 30px rgba(0,0,0,0.35)",
+              }}
+            >
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3006.206924665744!2d16.8795251!3d41.1081717!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDA2JzI3LjYiTiAxNsKwNTInNTAuNyJF!5e0!3m2!1sit!2sit!4v1766933810994!5m2!1sit!2sit"
                 width="100%"
                 height="300"
-                style={{ border: 0, maxWidth: '500px' }}
+                style={{ border: 0, maxWidth: '500px', borderRadius: "12px" }}
                 allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -92,7 +121,7 @@ function Home() {
 
       {/* Sezione 3: Best sellers */}
       <Typography variant="h4" align="center" sx={{ ...sectionHeadingSx, mb: 5 }}>
-        I nostri best seller:
+        I nostri best seller
       </Typography>
 
       <Grid container spacing={4} justifyContent="center">
@@ -128,7 +157,7 @@ function Home() {
       {/* Sezione 4: Chi siamo */}
       <Box sx={{ mt: 5, mb: 5 }}>
         <Typography variant="h4" align="center" gutterBottom sx={sectionHeadingSx}>
-          Chi siamo
+          Chi siamo?
         </Typography>
         <Typography variant="body1" align="center" sx={{ color: 'white', textShadow: '1px 1px 2px rgba(0,0,0,0.8)' }} paragraph>
           StreetBun è nato dalla passione per il cibo di strada autentico e di qualità. Fondato nel 2020 da un gruppo di amici amanti della cucina tradizionale italiana, il nostro obiettivo è offrire panini freschi e gustosi preparati con ingredienti selezionati. Crediamo che ogni morso debba raccontare una storia di tradizione e innovazione, unendo il sapore del pane appena sfornato con ripieni creativi e salutari.
@@ -148,7 +177,7 @@ function Home() {
       {/* Sezione 6: Frase finale */}
       <Box sx={{ textAlign: 'center', mt: 5 }}>
         <Typography variant="h4" align="center" sx={sectionHeadingSx}>
-          Vieni a trovarci
+          Vieni a trovarci!
         </Typography>
       </Box>
         </Box>
