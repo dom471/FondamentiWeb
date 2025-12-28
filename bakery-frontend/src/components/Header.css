@@ -33,8 +33,13 @@
 
 .hamburger-icon {
   color: #f7f3ef;
-  font-size: 30px;
+  font-size: 40px;
   cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.hamburger-icon:hover {
+  color: #e1dbd5;
 }
 
 .dropdown-menu {
@@ -43,16 +48,23 @@
   right: 0;
   background-color: #1a1a1a;
   border: 1px solid #f7f3ef;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   list-style: none;
-  padding: 0;
+  padding: 10px 0;
   margin: 0;
   display: none;
   z-index: 1000;
-  min-width: 200px;
+  min-width: 220px;
 }
 
 .dropdown-menu li {
-  padding: 10px;
+  padding: 12px 20px;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-menu li:hover {
+  background-color: #333;
 }
 
 .dropdown-menu li a,
