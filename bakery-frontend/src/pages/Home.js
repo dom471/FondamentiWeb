@@ -31,23 +31,20 @@ const products = [
 function Home() {
   return (
     <Box sx={{ position: "relative", overflow: "hidden" }}>
-      <Box
-        aria-hidden="true"
-        sx={{
-          position: "absolute",
-          top: 0,
-          bottom: 0,
-          left: "50%",
-          width: { xs: "100%", md: "85%" },
-          transform: "translateX(-50%)",
-          backgroundColor: "rgba(0, 0, 0, 0.2)",
-          backdropFilter: "blur(10px)",
-          zIndex: 0,
-        }}
-      />
-      <Container sx={{ py: 5, position: "relative", zIndex: 1 }}>
-      {/* Sezione 1: Titolo e concept */}
-      <Box sx={{ textAlign: 'center', mb: 5 }}>
+      <Container sx={{ py: 5, position: "relative" }}>
+        <Box
+          aria-hidden="true"
+          sx={{
+            position: "absolute",
+            inset: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.2)",
+            backdropFilter: "blur(10px)",
+            zIndex: 0,
+          }}
+        />
+        <Box sx={{ position: "relative", zIndex: 1 }}>
+        {/* Sezione 1: Titolo e concept */}
+        <Box sx={{ textAlign: 'center', mb: 5 }}>
         <Typography variant="h2" gutterBottom sx={{ fontWeight: 'bold', color: 'white', textShadow: '3px 3px 6px rgba(0,0,0,0.8)' }}>
           StreetBun – Panini street food
         </Typography>
@@ -148,6 +145,7 @@ function Home() {
           Vieni a trovarci
         </Typography>
       </Box>
+        </Box>
       </Container>
     </Box>
   );
