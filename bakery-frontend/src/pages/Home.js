@@ -40,6 +40,7 @@ function Home() {
     maxWidth: "100%",
     mx: 0,
     px: 0,
+    textAlign: "center",
   };
 
   return (
