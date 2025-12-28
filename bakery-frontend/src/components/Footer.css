@@ -3,4 +3,9 @@ footer {
   padding: 1rem;
   text-align: center;
   color: #f7f3ef;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
 }
