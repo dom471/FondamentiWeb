@@ -35,7 +35,11 @@ function Home() {
         aria-hidden="true"
         sx={{
           position: "absolute",
-          inset: 0,
+          top: 0,
+          bottom: 0,
+          left: "50%",
+          width: { xs: "100%", md: "85%" },
+          transform: "translateX(-50%)",
           backgroundColor: "rgba(0, 0, 0, 0.2)",
           backdropFilter: "blur(10px)",
           zIndex: 0,
