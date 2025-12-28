@@ -24,6 +24,10 @@ function AdminProducts() {
     if (!file) {
       return;
     }
+    if (file.size > 1024 * 1024) { // 1MB limit
+      setMessage("Immagine troppo grande! Max 1MB.");
+      return;
+    }
     const reader = new FileReader();
     reader.onloadend = () => {
       const result = typeof reader.result === "string" ? reader.result : "";

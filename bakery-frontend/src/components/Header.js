@@ -15,7 +15,7 @@ function Header() {
 
   return (
     <header className="header">
-      <h1><img src="/StreetBun-Icona.png" alt="StreetBun"/>StreetBun</h1>
+      <h1><img src="/StreetBun-Icona.png"/>StreetBun</h1>
       <div className="hamburger-menu">
         <MenuIcon className="hamburger-icon" sx={{ fontSize: 48 }} />
         <ul className="dropdown-menu">
