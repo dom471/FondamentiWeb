@@ -49,16 +49,16 @@ function Home() {
         <Grid container spacing={4} alignItems="center">
           <Grid item xs={12} md={6}>
             <Typography variant="body1" sx={{ color: 'white', textShadow: '1px 1px 2px rgba(0,0,0,0.8)' }} paragraph>
-              Siamo situati in Via Roma 123, Bari, Italia.
+              Siamo situati difronte all'ingresso del Campus Universitario in via Edoardo Orabona 4.
             </Typography>
             <Typography variant="body1" sx={{ color: 'white', textShadow: '1px 1px 2px rgba(0,0,0,0.8)' }} paragraph>
-              Orari di apertura: Lunedì-Venerdì 8:00-18:00, Sabato 8:00-14:00, Domenica chiuso.
+              Orari di apertura: Lunedì-Venerdì 8:00-20:00, Sabato 8:00-14:00, Domenica chiuso.
             </Typography>
           </Grid>
           <Grid item xs={12} md={6}>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.123456789012!2d16.88072363539288!3d41.10766204016634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDA2JzI3LjYiTiAxNsKwNTInNDIuNiJF!5e0!3m2!1sit!2sit!4v1234567890123!5m2!1sit!2sit"
+                src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3006.206924665744!2d16.8795251!3d41.1081717!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDA2JzI3LjYiTiAxNsKwNTInNTAuNyJF!5e0!3m2!1sit!2sit!4v1766933810994!5m2!1sit!2sit"
                 width="100%"
                 height="300"
                 style={{ border: 0, maxWidth: '500px' }}
