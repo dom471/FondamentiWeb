@@ -37,9 +37,9 @@ function Home() {
   const bodyTextSx = {
     color: 'white',
     textShadow: '1px 1px 2px rgba(0,0,0,0.8)',
-    maxWidth: "38ch",
-    mx: "auto",
-    px: 1,
+    maxWidth: "100%",
+    mx: 0,
+    px: 0,
   };
 
   return (
@@ -69,7 +69,7 @@ function Home() {
       {/* Sezione 2: Dove trovarci */}
       <Box sx={{ mb: 5 }}>
         <Typography variant="h4" align="center" gutterBottom sx={sectionHeadingSx}>
-          Dove trovarci e Orari
+          Dove e quando trovarci
         </Typography>
         <Grid container spacing={4} alignItems="center">
           <Grid item xs={12} md={12}>
