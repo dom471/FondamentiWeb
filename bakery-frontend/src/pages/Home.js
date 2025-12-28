@@ -4,7 +4,6 @@ import pizzaMargherita from "../immaginiHome/pizza-margherita.jpg";
 import paneIntegrale from "../immaginiHome/pane-integrale.jpg";
 import cornettoCrema from "../immaginiHome/cornetto-crema.jpg";
 import focaccia from "../immaginiHome/Focaccia-barese.jpg";
-import "./Home.css";
 
 const products = [
   {
@@ -33,42 +32,48 @@ function Home() {
   return (
     <Container sx={{ py: 5 }}>
       {/* Sezione 1: Titolo e concept */}
-      <Box className="home-section" sx={{ textAlign: 'center' }}>
-        <Typography variant="h2" className="home-title" gutterBottom sx={{ fontWeight: 'bold', color: '#a1662f' }}>
+      <Box sx={{ textAlign: 'center', mb: 5 }}>
+        <Typography variant="h2" gutterBottom sx={{ fontWeight: 'bold', color: 'white', textShadow: '3px 3px 6px rgba(0,0,0,0.8)' }}>
           StreetBun – Panini street food
         </Typography>
-        <Typography variant="h5" className="home-subtitle" color="text.secondary" paragraph>
+        <Typography variant="h5" sx={{ color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }} paragraph>
           Scopri il gusto autentico dei panini artigianali preparati con ingredienti freschi e locali, perfetti per una pausa veloce e deliziosa in movimento.
         </Typography>
       </Box>
 
       {/* Sezione 2: Dove trovarci */}
-      <Box className="home-section">
-        <Typography variant="h4" align="center" className="home-title" gutterBottom sx={{ fontWeight: 'bold' }}>
+      <Box sx={{ mb: 5 }}>
+        <Typography variant="h4" align="center" gutterBottom sx={{ fontWeight: 'bold', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
           Dove trovarci
         </Typography>
-        <Typography variant="body1" align="center" className="home-subtitle" paragraph>
-          Siamo situati in Via Roma 123, Bari, Italia.
-        </Typography>
-        <Typography variant="body1" align="center" className="home-subtitle" paragraph>
-          Orari di apertura: Lunedì-Venerdì 8:00-18:00, Sabato 8:00-14:00, Domenica chiuso.
-        </Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.123456789012!2d16.88072787728312!3d41.10767945938453!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDA2JzI3LjYiTiAxNsKwNTInNDIuNiJF!5e0!3m2!1sit!2sit!4v1234567890123!5m2!1sit!2sit"
-            width="600"
-            height="450"
-            style={{ border: 0 }}
-            allowFullScreen=""
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Mappa StreetBun"
-          ></iframe>
-        </Box>
+        <Grid container spacing={4} alignItems="center">
+          <Grid item xs={12} md={6}>
+            <Typography variant="body1" sx={{ color: 'white', textShadow: '1px 1px 2px rgba(0,0,0,0.8)' }} paragraph>
+              Siamo situati in Via Roma 123, Bari, Italia.
+            </Typography>
+            <Typography variant="body1" sx={{ color: 'white', textShadow: '1px 1px 2px rgba(0,0,0,0.8)' }} paragraph>
+              Orari di apertura: Lunedì-Venerdì 8:00-18:00, Sabato 8:00-14:00, Domenica chiuso.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.123456789012!2d16.88072363539288!3d41.10766204016634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDA2JzI3LjYiTiAxNsKwNTInNDIuNiJF!5e0!3m2!1sit!2sit!4v1234567890123!5m2!1sit!2sit"
+                width="100%"
+                height="300"
+                style={{ border: 0, maxWidth: '500px' }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Mappa StreetBun"
+              ></iframe>
+            </Box>
+          </Grid>
+        </Grid>
       </Box>
 
       {/* Sezione 3: Best sellers */}
-      <Typography variant="h4" align="center" color="text.secondary" paragraph sx={{ mb: 5 }}>
+      <Typography variant="h4" align="center" sx={{ color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)', mb: 5 }}>
         I nostri best seller:
       </Typography>
 
@@ -103,28 +108,28 @@ function Home() {
       </Grid>
 
       {/* Sezione 4: Chi siamo */}
-      <Box className="home-section">
-        <Typography variant="h4" align="center" className="home-title" gutterBottom sx={{ fontWeight: 'bold' }}>
+      <Box sx={{ mt: 5, mb: 5 }}>
+        <Typography variant="h4" align="center" gutterBottom sx={{ fontWeight: 'bold', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
           Chi siamo
         </Typography>
-        <Typography variant="body1" align="center" className="home-subtitle" paragraph>
+        <Typography variant="body1" align="center" sx={{ color: 'white', textShadow: '1px 1px 2px rgba(0,0,0,0.8)' }} paragraph>
           StreetBun è nato dalla passione per il cibo di strada autentico e di qualità. Fondato nel 2020 da un gruppo di amici amanti della cucina tradizionale italiana, il nostro obiettivo è offrire panini freschi e gustosi preparati con ingredienti selezionati. Crediamo che ogni morso debba raccontare una storia di tradizione e innovazione, unendo il sapore del pane appena sfornato con ripieni creativi e salutari.
         </Typography>
       </Box>
 
       {/* Sezione 5: Le nostre qualità */}
-      <Box className="home-section">
-        <Typography variant="h4" align="center" className="home-title" gutterBottom sx={{ fontWeight: 'bold' }}>
+      <Box sx={{ mb: 5 }}>
+        <Typography variant="h4" align="center" gutterBottom sx={{ fontWeight: 'bold', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
           Le nostre qualità
         </Typography>
-        <Typography variant="body1" align="center" className="home-subtitle" paragraph>
+        <Typography variant="body1" align="center" sx={{ color: 'white', textShadow: '1px 1px 2px rgba(0,0,0,0.8)' }} paragraph>
           Utilizziamo solo prodotti locali e di stagione per garantire freschezza e sostenibilità. Il nostro pane è artigianale, lievitato naturalmente senza additivi, e le patatine sono tagliate al momento per una croccantezza unica. Ogni panino è un'esperienza culinaria, preparata con cura per soddisfare i palati più esigenti.
         </Typography>
       </Box>
 
       {/* Sezione 6: Frase finale */}
-      <Box className="home-section" sx={{ textAlign: 'center' }}>
-        <Typography variant="h4" className="home-title" sx={{ fontWeight: 'bold', color: '#a1662f' }}>
+      <Box sx={{ textAlign: 'center', mt: 5 }}>
+        <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'white', textShadow: '3px 3px 6px rgba(0,0,0,0.8)' }}>
           Vieni a trovarci
         </Typography>
       </Box>
