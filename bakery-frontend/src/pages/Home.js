@@ -36,18 +36,6 @@ function Home() {
         sx={{
           position: "absolute",
           inset: 0,
-          backgroundImage: `url(${paneCasereccio})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          transform: "scale(1.05)",
-          zIndex: 0,
-        }}
-      />
-      <Box
-        aria-hidden="true"
-        sx={{
-          position: "absolute",
-          inset: 0,
           backgroundColor: "rgba(0, 0, 0, 0.2)",
           backdropFilter: "blur(10px)",
           zIndex: 0,
