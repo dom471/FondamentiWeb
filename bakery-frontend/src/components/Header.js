@@ -14,7 +14,7 @@ function Header() {
 
   return (
     <header className="header">
-      <h1>StreetBun</h1>
+      <h1><img src="/StreetBun-Icona.png"/> StreetBun</h1>
       <nav>
         <Link to="/">Home</Link>
         <Link to="/products">Prodotti</Link>
