@@ -72,24 +72,20 @@ function Home() {
         <Typography variant="h4" align="center" gutterBottom sx={sectionHeadingSx}>
           Dove e quando trovarci
         </Typography>
-        <Grid container spacing={4} alignItems="center">
-          <Grid item xs={12} md={12}>
-            <Typography
-              variant="body1"
-              sx={bodyTextSx}
-              paragraph
-            >
-              Siamo situati difronte all'ingresso del Campus Universitario in via Edoardo Orabona 4.
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={bodyTextSx}
-              paragraph
-            >
-              Orari di apertura: Lunedì-Venerdì 8:00-20:00, Sabato 8:00-14:00, Domenica chiuso.
-            </Typography>
-          </Grid>
-        </Grid>
+        <Typography
+          variant="body1"
+          sx={bodyTextSx}
+          paragraph
+        >
+          Siamo situati difronte all'ingresso del Campus Universitario in via Edoardo Orabona 4.
+        </Typography>
+        <Typography
+          variant="body1"
+          sx={bodyTextSx}
+          paragraph
+        >
+          Orari di apertura: Lunedì-Venerdì 8:00-20:00, Sabato 8:00-14:00, Domenica chiuso.
+        </Typography>
       </Box>
 
       {/* Sezione 3: Best sellers */}
@@ -148,7 +144,7 @@ function Home() {
       </Box>
 
       {/* Sezione 6: Frase finale */}
-      <Box sx={{ textAlign: 'center', mt: 5 }}>
+      <Box sx={{ textAlign: 'center', mt: 5, pb: 2 }}>
         <Typography variant="h4" align="center" sx={sectionHeadingSx}>
           Vieni a trovarci!
         </Typography>
