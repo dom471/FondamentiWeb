@@ -29,6 +29,12 @@ const products = [
 ];
 
 function Home() {
+  const sectionHeadingSx = {
+    fontWeight: "bold",
+    color: "#D9AD58",
+    textShadow: "2px 2px 4px rgba(0,0,0,0.8)",
+  };
+
   return (
     <Box sx={{ position: "relative", overflow: "hidden" }}>
       <Container sx={{ py: 5, position: "relative" }}>
@@ -45,7 +51,7 @@ function Home() {
         <Box sx={{ position: "relative", zIndex: 1 }}>
         {/* Sezione 1: Titolo e concept */}
         <Box sx={{ textAlign: 'center', mb: 5 }}>
-        <Typography variant="h2" gutterBottom sx={{ fontWeight: 'bold', color: 'white', textShadow: '3px 3px 6px rgba(0,0,0,0.8)' }}>
+        <Typography variant="h2" gutterBottom sx={{ fontWeight: 'bold', color: '#AA3A2C', textShadow: '3px 3px 6px rgba(0,0,0,0.8)' }}>
           StreetBun – Panini street food
         </Typography>
         <Typography variant="h5" sx={{ color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }} paragraph>
@@ -55,7 +61,7 @@ function Home() {
 
       {/* Sezione 2: Dove trovarci */}
       <Box sx={{ mb: 5 }}>
-        <Typography variant="h4" align="center" gutterBottom sx={{ fontWeight: 'bold', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
+        <Typography variant="h4" align="center" gutterBottom sx={sectionHeadingSx}>
           Dove trovarci e Orari
         </Typography>
         <Grid container spacing={4} alignItems="center">
@@ -85,7 +91,7 @@ function Home() {
       </Box>
 
       {/* Sezione 3: Best sellers */}
-      <Typography variant="h4" align="center" sx={{ color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)', mb: 5 }}>
+      <Typography variant="h4" align="center" sx={{ ...sectionHeadingSx, mb: 5 }}>
         I nostri best seller:
       </Typography>
 
@@ -121,7 +127,7 @@ function Home() {
 
       {/* Sezione 4: Chi siamo */}
       <Box sx={{ mt: 5, mb: 5 }}>
-        <Typography variant="h4" align="center" gutterBottom sx={{ fontWeight: 'bold', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
+        <Typography variant="h4" align="center" gutterBottom sx={sectionHeadingSx}>
           Chi siamo
         </Typography>
         <Typography variant="body1" align="center" sx={{ color: 'white', textShadow: '1px 1px 2px rgba(0,0,0,0.8)' }} paragraph>
@@ -131,7 +137,7 @@ function Home() {
 
       {/* Sezione 5: Le nostre qualità */}
       <Box sx={{ mb: 5 }}>
-        <Typography variant="h4" align="center" gutterBottom sx={{ fontWeight: 'bold', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
+        <Typography variant="h4" align="center" gutterBottom sx={sectionHeadingSx}>
           Le nostre qualità
         </Typography>
         <Typography variant="body1" align="center" sx={{ color: 'white', textShadow: '1px 1px 2px rgba(0,0,0,0.8)' }} paragraph>
@@ -141,7 +147,7 @@ function Home() {
 
       {/* Sezione 6: Frase finale */}
       <Box sx={{ textAlign: 'center', mt: 5 }}>
-        <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'white', textShadow: '3px 3px 6px rgba(0,0,0,0.8)' }}>
+        <Typography variant="h4" align="center" sx={sectionHeadingSx}>
           Vieni a trovarci
         </Typography>
       </Box>
