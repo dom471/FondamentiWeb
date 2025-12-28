@@ -30,7 +30,30 @@ const products = [
 
 function Home() {
   return (
-    <Container sx={{ py: 5 }}>
+    <Box sx={{ position: "relative", overflow: "hidden" }}>
+      <Box
+        aria-hidden="true"
+        sx={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: `url(${paneCasereccio})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          transform: "scale(1.05)",
+          zIndex: 0,
+        }}
+      />
+      <Box
+        aria-hidden="true"
+        sx={{
+          position: "absolute",
+          inset: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.35)",
+          backdropFilter: "blur(10px)",
+          zIndex: 0,
+        }}
+      />
+      <Container sx={{ py: 5, position: "relative", zIndex: 1 }}>
       {/* Sezione 1: Titolo e concept */}
       <Box sx={{ textAlign: 'center', mb: 5 }}>
         <Typography variant="h2" gutterBottom sx={{ fontWeight: 'bold', color: 'white', textShadow: '3px 3px 6px rgba(0,0,0,0.8)' }}>
@@ -44,7 +67,7 @@ function Home() {
       {/* Sezione 2: Dove trovarci */}
       <Box sx={{ mb: 5 }}>
         <Typography variant="h4" align="center" gutterBottom sx={{ fontWeight: 'bold', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
-          Dove trovarci
+          Dove trovarci e Orari
         </Typography>
         <Grid container spacing={4} alignItems="center">
           <Grid item xs={12} md={6}>
@@ -133,7 +156,8 @@ function Home() {
           Vieni a trovarci
         </Typography>
       </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 }
 
