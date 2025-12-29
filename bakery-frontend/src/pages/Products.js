@@ -85,35 +85,38 @@ function Products() {
       )}
 
       <div className="products-row">
-        {products.map((p) => (
-          <div
-            className="product-card"
-            key={p._id}
-            onMouseEnter={() => setHoveredProductId(p._id)}
-            onMouseLeave={() => setHoveredProductId(null)}
-          >
-            {p.image && (
-              <img className="product-img" src={p.image} alt={p.name} />
-            )}
-            <h3>{p.name}</h3>
-            <p className="price">{"\u20AC"} {Number(p.price).toFixed(2)}</p>
-            {p.description && (
-              <p
-                className={`product-description${
-                  hoveredProductId === p._id ? " is-visible" : ""
-                }`}
-              >
-                {p.description}
-              </p>
-            )}
-            <button
-              className="button-cart"
-              onClick={(event) => handleAddToCart(event, p)}
+        {products.map((p, index) => {
+          const productId = p._id ?? `${p.name ?? "product"}-${index}`;
+          return (
+            <div
+              className="product-card"
+              key={productId}
+              onMouseEnter={() => setHoveredProductId(productId)}
+              onMouseLeave={() => setHoveredProductId(null)}
             >
-              Aggiungi al carrello
-            </button>
-          </div>
-        ))}
+              {p.image && (
+                <img className="product-img" src={p.image} alt={p.name} />
+              )}
+              <h3>{p.name}</h3>
+              <p className="price">{"\u20AC"} {Number(p.price).toFixed(2)}</p>
+              {p.description && (
+                <p
+                  className={`product-description${
+                    hoveredProductId === productId ? " is-visible" : ""
+                  }`}
+                >
+                  {p.description}
+                </p>
+              )}
+              <button
+                className="button-cart"
+                onClick={(event) => handleAddToCart(event, p)}
+              >
+                Aggiungi al carrello
+              </button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
