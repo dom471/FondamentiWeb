@@ -13,22 +13,11 @@ router.get("/", async (req, res) => {
   }
 });
 
-// POST nuovo prodotto
-router.post("/", async (req, res) => {
-  try {
-    const newProduct = new Product(req.body);
-    const saved = await newProduct.save();
-    res.status(201).json(saved);
-  } catch (err) {
-    res.status(400).json({ error: "Errore nella creazione del prodotto" });
-  }
-});
-
 // POST /api/products, se sono  proprietario posso aggiungere un nuovo prodotto 
 router.post("/", async (req, res) => {
   try {
-    const { name, price, image } = req.body;
-    const newProduct = new Product({ name, price, image });
+    const { name, price, image, description } = req.body;
+    const newProduct = new Product({ name, price, image, description });
     const saved = await newProduct.save();
     res.status(201).json(saved);
   } catch (err) {

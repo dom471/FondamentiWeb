@@ -3,7 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import "./AdminProducts.css";
 import API_URL from "../config";
 
-const EMPTY_PRODUCT = { name: "", price: "", image: "" };
+const EMPTY_PRODUCT = { name: "", price: "", image: "", description: "" };
 
 function AdminProducts() {
   const { user } = useContext(AuthContext);
@@ -43,8 +43,8 @@ function AdminProducts() {
   };
 
   const handleAdd = async () => {
-    if (!newProduct.name || !newProduct.price) {
-      setMessage("Inserisci nome e prezzo.");
+    if (!newProduct.name || !newProduct.description.trim() || !newProduct.price) {
+      setMessage("Inserisci nome, descrizione e prezzo.");
       return;
     }
 
@@ -91,6 +91,14 @@ function AdminProducts() {
           placeholder="Nome prodotto"
           value={newProduct.name}
           onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+        />
+        <textarea
+          placeholder="Descrizione prodotto"
+          value={newProduct.description}
+          onChange={(e) =>
+            setNewProduct({ ...newProduct, description: e.target.value })
+          }
+          rows={3}
         />
         <input
           placeholder="Prezzo"
