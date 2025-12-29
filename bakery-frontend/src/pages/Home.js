@@ -37,6 +37,7 @@ function Home() {
   const bodyTextSx = {
     color: 'white',
     textShadow: '1px 1px 2px rgba(0,0,0,0.8)',
+    fontSize: "1.1rem",
     maxWidth: "100%",
     mx: 0,
     px: 0,
