@@ -33,9 +33,7 @@ function Products() {
 
   return (
     <div className="products-page">
-      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
-        I nostri prodotti
-      </h2>
+      <h2 className="products-title">I nostri prodotti</h2>
 
       <div className="products-row">
         {products.map((p) => (
