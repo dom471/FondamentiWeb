@@ -56,11 +56,11 @@ function Products() {
 
     hideToastTimeoutRef.current = setTimeout(() => {
       setCartToast((prev) => (prev ? { ...prev, fading: true } : prev));
-    }, 5000);
+    }, 1500);
 
     removeToastTimeoutRef.current = setTimeout(() => {
       setCartToast(null);
-    }, 6000);
+    }, 2500);
   };
 
   const handleAddToCart = (event, product) => {
