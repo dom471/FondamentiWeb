@@ -1,30 +1,30 @@
 import { Grid, Card, CardMedia, CardContent, Typography, Container, Box } from "@mui/material";
-import paneCasereccio from "../immaginiHome/pane-casereccio.jpg";
-import pizzaMargherita from "../immaginiHome/pizza-margherita.jpg";
-import paneIntegrale from "../immaginiHome/pane-integrale.jpg";
-import cornettoCrema from "../immaginiHome/cornetto-crema.jpg";
-import focaccia from "../immaginiHome/Focaccia-barese.jpg";
+import cheeseburger from "../immaginiHome/cheeseburger.jpeg";
+import hotdog from "../immaginiHome/Hotdog.jpeg";
+import tradizionale from "../immaginiHome/iltradizionale.jpeg";
+import pulled from "../immaginiHome/Pullpassion.jpeg";
+import piccante from "../immaginiHome/piccante.jpeg";
 
 const products = [
   {
-    name: "Pane Casereccio",
-    image: paneCasereccio,
+    name: "Cheeseburger",
+    image: cheeseburger,
   },
   {
-    name: "Pizza Margherita",
-    image: pizzaMargherita,
+    name: "Hotdog",
+    image: hotdog,
   },
   {
-    name: "Pane Integrale",
-    image: paneIntegrale,
+    name: "Il Tradizionale",
+    image: tradizionale,
   },
   {
-    name: "Cornetto alla Crema",
-    image: cornettoCrema,
+    name: "Pulled Passion",
+    image: pulled,
   },
   {
-    name: "Focaccia",
-    image: focaccia,
+    name: "Il Piccante",
+    image: piccante,
   },
 ];
 
