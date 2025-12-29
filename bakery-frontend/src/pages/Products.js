@@ -8,6 +8,7 @@ function Products() {
   const [loading, setLoading] = useState(true);
   const { addToCart, syncCartWithProducts } = useContext(CartContext);
   const [cartToast, setCartToast] = useState(null);
+  const [hoveredProductId, setHoveredProductId] = useState(null);
   const hideToastTimeoutRef = useRef(null);
   const removeToastTimeoutRef = useRef(null);
 
@@ -85,14 +86,25 @@ function Products() {
 
       <div className="products-row">
         {products.map((p) => (
-          <div className="product-card" key={p._id}>
+          <div
+            className="product-card"
+            key={p._id}
+            onMouseEnter={() => setHoveredProductId(p._id)}
+            onMouseLeave={() => setHoveredProductId(null)}
+          >
             {p.image && (
               <img className="product-img" src={p.image} alt={p.name} />
             )}
             <h3>{p.name}</h3>
             <p className="price">{"\u20AC"} {Number(p.price).toFixed(2)}</p>
             {p.description && (
-              <p className="product-description">{p.description}</p>
+              <p
+                className={`product-description${
+                  hoveredProductId === p._id ? " is-visible" : ""
+                }`}
+              >
+                {p.description}
+              </p>
             )}
             <button
               className="button-cart"

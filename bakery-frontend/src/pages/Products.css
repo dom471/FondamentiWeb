@@ -71,11 +71,13 @@
   font-size: 0.9rem;
   color: #333;
   line-height: 1.4;
+  text-align: center;
+  white-space: pre-line;
   transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
 }
 
-.product-card:hover .product-description {
-  max-height: 160px;
+.product-description.is-visible {
+  max-height: 200px;
   opacity: 1;
   margin-top: 0.5rem;
 }
