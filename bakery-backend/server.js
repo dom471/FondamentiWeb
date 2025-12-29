@@ -84,18 +84,19 @@ app.post("/api/orders", verifyToken, async (req, res) => {
     }
 
     // Verifica che tutti i prodotti esistano ancora nel DB
-    const missingProducts = [];
-    if (Array.isArray(items)) {
-      for (const it of items) {
-        if (it.productId) {
-          try {
-            const p = await Product.findById(it.productId).select("_id name");
-            if (!p) missingProducts.push(it.name || it.productId);
-          } catch (e) {
-            missingProducts.push(it.name || it.productId);
-          }
-        }
-      }
+    const itemsArray = Array.isArray(items) ? items : [];
+    const productIds = itemsArray
+      .map((it) => it.productId)
+      .filter(Boolean)
+      .map((id) => id.toString());
+    let missingProducts = [];
+
+    if (productIds.length > 0) {
+      const foundProducts = await Product.find({ _id: { $in: productIds } }).select("_id");
+      const foundIds = new Set(foundProducts.map((p) => p._id.toString()));
+      missingProducts = itemsArray
+        .filter((it) => it.productId && !foundIds.has(it.productId.toString()))
+        .map((it) => it.name || it.productId);
     }
 
     if (missingProducts.length > 0) {
@@ -110,15 +111,12 @@ app.post("/api/orders", verifyToken, async (req, res) => {
     const savedOrder = await newOrder.save();
     await savedOrder.populate("userId", "name email role");
 
-    // Cerca il nome dell'utente per la notifica
-    let userName = "Utente sconosciuto";
-    try {
-      const user = await User.findById(userId);
-      if (user) userName = user.name || user.email;
-    } catch (err) {
-      console.warn("Utente non trovato:", err.message);
-    }
-   
+    // Usa i dati gia popolati per la notifica
+    const userName =
+      savedOrder.userId?.name ||
+      savedOrder.userId?.email ||
+      "Utente sconosciuto";
+
     // Messaggio Telegram
     const prodotti = items.map(i => `${i.name} × ${i.quantity}`).join("\n");
     const text = `
@@ -133,18 +131,26 @@ ${new Date().toLocaleString()}
 `;
 
     // Invio del messaggio Telegram
-    await axios.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-      chat_id: CHAT_ID,
-      text,
-      parse_mode: "Markdown",
-    });
-
-    console.log("Notifica Telegram inviata con successo!");
-
     // Aggiorna in tempo reale l’interfaccia dell’admin
     io.emit("newOrder", savedOrder);
 
     res.status(201).json(savedOrder);
+
+    // Invio del messaggio Telegram in background per non rallentare la risposta
+    if (BOT_TOKEN && CHAT_ID) {
+      axios
+        .post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          chat_id: CHAT_ID,
+          text,
+          parse_mode: "Markdown",
+        })
+        .then(() => {
+          console.log("Notifica Telegram inviata con successo!");
+        })
+        .catch((err) => {
+          console.error("Errore invio Telegram:", err.message);
+        });
+    }
   } catch (err) {
     console.error("Errore nella creazione dell'ordine:", err);
     res.status(500).json({ error: "Errore durante il salvataggio dell'ordine" });

@@ -10,6 +10,7 @@ function Orders() {
   const { user, getToken } = useContext(AuthContext);
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const total = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -17,7 +18,7 @@ function Orders() {
   );
 
   const handleConfirm = async () => {
-    if (cart.length === 0) return;
+    if (cart.length === 0 || isSubmitting) return;
 
     if (!user) {
       alert("Devi effettuare il login per prenotare.");
@@ -31,6 +32,8 @@ function Orders() {
       navigate("/login");
       return;
     }
+
+    setIsSubmitting(true);
 
     try {
       const order = {
@@ -93,6 +96,8 @@ function Orders() {
     } catch (err) {
       console.error("Errore:", err);
       setMessage("Impossibile contattare il server");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -141,10 +146,17 @@ function Orders() {
       <h3>Totale: {"\u20AC"} {total.toFixed(2)}</h3>
 
       <div className="order-actions">
-        <button className="confirm" onClick={handleConfirm}>
-          Conferma prenotazione
+        <button className="confirm" onClick={handleConfirm} disabled={isSubmitting}>
+          {isSubmitting ? (
+            <span className="confirm-button-content">
+              <span className="confirm-label">Invio in corso...</span>
+              <span className="confirm-spinner" aria-hidden="true" />
+            </span>
+          ) : (
+            "Conferma prenotazione"
+          )}
         </button>
-        <button className="clear" onClick={clearCart}>
+        <button className="clear" onClick={clearCart} disabled={isSubmitting}>
           Svuota carrello
         </button>
       </div>
