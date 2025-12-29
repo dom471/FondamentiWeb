@@ -3,7 +3,6 @@ import cheeseburger from "../immaginiHome/cheeseburger.jpeg";
 import hotdog from "../immaginiHome/Hotdog.jpeg";
 import tradizionale from "../immaginiHome/iltradizionale.jpeg";
 import pulled from "../immaginiHome/Pullpassion.jpeg";
-import patatine from "../immaginiHome/patat2.jpeg";
 import piccante from "../immaginiHome/piccante.jpeg";
 
 const products = [
@@ -26,10 +25,6 @@ const products = [
   {
     name: "Il Piccante",
     image: piccante,
-  },
-  {
-    name: "Patatine Fritte",
-    image: patatine,
   },
 ];
 
