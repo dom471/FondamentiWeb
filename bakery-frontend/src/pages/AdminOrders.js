@@ -63,7 +63,7 @@ function AdminOrders() {
   };
 
   if (loading)
-    return <p style={{ textAlign: "center" }}>Caricamento ordini...</p>;
+    return <p className="status-message">Caricamento ordini...</p>;
 
   if (orders.length === 0)
     return <p className="status-message">Nessuna prenotazione trovata.</p>;
