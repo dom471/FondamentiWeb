@@ -26,6 +26,29 @@
   justify-content: center;
 }
 
+.cart-toast {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: #1a1a1a;
+  color: #f7f3ef;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  font-size: 0.95rem;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1s ease, transform 1s ease;
+  pointer-events: none;
+  z-index: 2000;
+  white-space: nowrap;
+}
+
+.cart-toast.fade-out {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
 .product-card {
   background: #fff;
   border-radius: 12px;
