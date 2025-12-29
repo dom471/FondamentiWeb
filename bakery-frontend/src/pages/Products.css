@@ -10,7 +10,8 @@
 
 .products-loading {
   text-align: center;
-  margin-top: 90px;
+  margin: 70px 0 24px;
+  font-size: 2rem;
   color: #fff;
   text-shadow:
     0 2px 4px rgba(0, 0, 0, 0.9),
