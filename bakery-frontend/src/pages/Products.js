@@ -29,7 +29,7 @@ function Products() {
   }, []);
 
   if (loading)
-    return <p style={{ textAlign: "center" }}>Caricamento prodotti...</p>;
+    return <p className="products-loading">Caricamento prodotti...</p>;
 
   return (
     <div className="products-page">
