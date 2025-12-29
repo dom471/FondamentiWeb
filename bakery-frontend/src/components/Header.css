@@ -31,6 +31,18 @@
   color: #e1dbd5;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-greeting {
+  color: #f7f3ef;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
 .hamburger-menu {
   position: relative;
   cursor: pointer;
