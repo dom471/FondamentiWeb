@@ -91,6 +91,9 @@ function Products() {
             )}
             <h3>{p.name}</h3>
             <p className="price">{"\u20AC"} {Number(p.price).toFixed(2)}</p>
+            {p.description && (
+              <p className="product-description">{p.description}</p>
+            )}
             <button
               className="button-cart"
               onClick={(event) => handleAddToCart(event, p)}
