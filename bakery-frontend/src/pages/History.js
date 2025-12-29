@@ -83,7 +83,7 @@ function History() {
     return <p style={{ textAlign: "center" }}>Caricamento storico...</p>;
 
   if (orders.length === 0)
-    return <p style={{ textAlign: "center" }}>Nessuna prenotazione trovata.</p>;
+    return <p className="status-message">Nessuna prenotazione trovata.</p>;
 
   return (
     <div className="history-container">
