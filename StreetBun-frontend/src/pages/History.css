@@ -1,0 +1,63 @@
+.history-container {
+  position: relative;
+  max-width: 900px;
+  margin: 2.5rem auto;
+  padding: 2rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  border-radius: 16px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.history-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.history-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+.history-container h2 {
+  margin: 0;
+  text-align: center;
+}
+
+.day-group {
+  width: 100%;
+  max-width: 720px;
+  padding: 1.25rem 1.5rem;
+  background-color: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  text-align: left;
+}
+
+.day-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin: 0 0 0.6rem;
+}
+
+.day-group ul {
+  margin: 0.8rem 0;
+  padding-left: 1.2rem;
+}
+
+.day-group li {
+  margin: 0 0 0.35rem;
+}
