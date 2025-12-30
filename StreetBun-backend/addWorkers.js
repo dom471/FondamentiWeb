@@ -13,7 +13,7 @@ async function addWorker() {
 
     const worker = new User({
       name: "domenico",
-      email: "domenico@panificio.com",
+      email: "domenico@gmail.com",
       password: hashedPassword,
       role: "worker",
     });
