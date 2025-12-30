@@ -74,13 +74,13 @@ function History() {
 
   if (!user)
     return (
-      <p style={{ textAlign: "center" }}>
+      <p className="status-message">
         Devi effettuare il login per vedere lo storico.
       </p>
     );
 
   if (loading)
-    return <p style={{ textAlign: "center" }}>Caricamento storico...</p>;
+    return <p className="status-message">Caricamento storico...</p>;
 
   if (orders.length === 0)
     return <p className="status-message">Nessuna prenotazione trovata.</p>;

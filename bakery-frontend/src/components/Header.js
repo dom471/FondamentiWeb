@@ -29,8 +29,8 @@ function Header() {
           <MenuIcon className="hamburger-icon" sx={{ fontSize: 48 }} />
           <ul className="dropdown-menu">
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/products">Prodotti</Link></li>
-            <li><Link to="/orders">Carrello</Link></li>
+            <li><Link to="/products">Ordina ora</Link></li>
+            <li><Link to="/orders">Il mio carrello</Link></li>
             {user?.role === "owner" && <li><Link to="/admin">Gestione prodotti</Link></li>}
             {(user?.role === "owner" || user?.role === "worker") && <li><Link to="/admin/orders">Visualizzazione Ordini</Link></li>}
             {user?.role === "worker" && <li><Link to="/ricette">Ricettario</Link></li>}
