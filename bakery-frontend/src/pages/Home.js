@@ -130,7 +130,7 @@ function Home() {
           Chi siamo?
         </Typography>
         <Typography variant="body1" align="center" sx={bodyTextSx} paragraph>
-          StreetBun è nato dalla passione per il cibo di strada autentico e di qualità. Fondato nel 2020 da un gruppo di amici amanti della cucina tradizionale italiana, il nostro obiettivo è offrire panini freschi e gustosi preparati con ingredienti selezionati. Crediamo che ogni morso debba raccontare una storia di tradizione e innovazione, unendo il sapore del pane appena sfornato con ripieni creativi e salutari.
+          StreetBun è nato dalla passione per il cibo di strada autentico e di qualità. Fondato nel 2020 da un gruppo di amici amanti della cucina tradizionale italiana, il nostro obiettivo è offrire panini freschi e gustosi preparati con ingredienti selezionati. Crediamo che ogni morso debba raccontare una storia di tradizione e innovazione, unendo il sapore del pane artigianale con ripieni creativi e salutari.
         </Typography>
       </Box>
 
