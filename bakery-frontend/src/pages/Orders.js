@@ -147,19 +147,18 @@ function Orders() {
 
       <div className="order-actions">
         <button className="confirm" onClick={handleConfirm} disabled={isSubmitting}>
-          {isSubmitting ? (
-            <span className="confirm-button-content">
-              <span className="confirm-label">Invio in corso...</span>
-              <span className="confirm-spinner" aria-hidden="true" />
-            </span>
-          ) : (
-            "Conferma prenotazione"
-          )}
+          {isSubmitting ? "Invio in corso..." : "Conferma prenotazione"}
         </button>
         <button className="clear" onClick={clearCart} disabled={isSubmitting}>
           Svuota carrello
         </button>
       </div>
+
+      {isSubmitting && (
+        <div className="confirm-spinner-overlay" aria-hidden="true">
+          <div className="confirm-spinner-lg" />
+        </div>
+      )}
 
       {message && <p style={{ color: "green", marginTop: "1rem" }}>{message}</p>}
     </div>
