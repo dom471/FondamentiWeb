@@ -1,6 +1,8 @@
+// Configurazione delle variabili d'ambiente da .env
 import dotenv from "dotenv"
 dotenv.config();
 
+// Import di librerie esterne necessarie
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -8,51 +10,51 @@ import http from "http";
 import { Server } from "socket.io";
 import axios from "axios";
 import { verifyToken } from "./middleware/authMiddleware.js";
+import bcrypt from "bcryptjs"
 
-// Import modelli e rotte
+// Import delle rotte Express
 import productRoutes from "./routes/productRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+
+// Import dei modelli Mongoose
 import Order from "./models/Order.js";
 import Product from "./models/Product.js";
 import User from "./models/User.js";
-import bcrypt from "bcryptjs"
 
+// CONFIGURAZIONE BASE SERVER EXPRESS
+const app = express(); 
+app.use(cors()); 
 
-// CONFIGURAZIONE BASE SERVER
-const app = express();
-app.use(cors());
-app.use(express.json({ limit: "5mb" }));
+//permettono a Express di parsare le richieste arrivate al server
+app.use(express.json({ limit: "5mb" })); // Per evitare payload troppo grandi
 app.use(express.urlencoded({ extended: true, limit: "5mb" }));
 
 // TELEGRAM BOT (webhook)
-
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 if (!BOT_TOKEN || !CHAT_ID) {
   console.error("Missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID in environment variables");
 }
 
-
-// SOCKET.IO (aggiornamenti real-time)
-const server = http.createServer(app);
+// SERVER HTTP + SOCKET.IO (aggiornamenti real-time)
+const server = http.createServer(app); 
 const io = new Server(server, {
-  cors: {
+  cors: { //Configura il CORS specifico di Socket.IO
     origin: "http://localhost:3000",
     methods: ["GET", "POST"],
   },
 });
 
-
-// Quando un client si connette via Socket.IO
-io.on("connection", (socket) => {
+// Gestione delle connessioni Socket.IO
+io.on("connection", (socket) => {  //listener per ogni volta che un client si connette al server
   console.log("Client connesso:", socket.id);
-  socket.on("disconnect", () => console.log("Client disconnesso:", socket.id));
+  socket.on("disconnect", () => console.log("Client disconnesso:", socket.id)); //listener per la disconnessione
 });
 
-//All'avvio del server.js controlliamo sempre che esista già un utente admin nel database, se non esiste ne creiamo uno di default per evitare di inserirne uno manualmente, per comodità
+//All'avvio del server.js controlliamo sempre che esista già un utente admin nel database, se non esiste ne creiamo uno di default per evitare di inserirne uno manualmente
 async function createAdminUser() {
-  const existingAdmin = await User.findOne({ email: "admin@gmail.com" });
+const existingAdmin = await User.findOne({ role: "owner" });
   if (!existingAdmin) {
     const hashedPassword = await bcrypt.hash("admin123", 10);
     const adminUser = new User({
@@ -64,7 +66,7 @@ async function createAdminUser() {
     await adminUser.save();
     console.log("Utente admin creato con successo!");
   } else {
-    console.log("ℹUtente admin già presente.");
+    console.log("Utente admin già presente.");
   }
 }
 
