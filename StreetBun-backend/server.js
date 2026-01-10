@@ -54,7 +54,7 @@ io.on("connection", (socket) => {  //listener per ogni volta che un client si co
 
 //All'avvio del server.js controlliamo sempre che esista già un utente admin nel database, se non esiste ne creiamo uno di default per evitare di inserirne uno manualmente
 async function createAdminUser() {
-const existingAdmin = await User.findOne({ role: "owner" });
+const existingAdmin = await User.findOne({ role: "owner" }); //findOne dà come risultato il primo documento che corrisponde al filtro specificato
   if (!existingAdmin) {
     const hashedPassword = await bcrypt.hash("admin123", 10);
     const adminUser = new User({
@@ -80,16 +80,17 @@ app.post("/api/orders", verifyToken, async (req, res) => { //se arriva una richi
     if (!userId) {
       return res
         .status(401)
-        .json({ error: "Utente sconosciuto. Effettua il login per prenotare." });
+        .json({ error: "Utente sconosciuto. Effettua il login per prenotare." }); 
     }
 
     // Verifica che tutti i prodotti esistano ancora nel DB
-    const itemsArray = Array.isArray(items) ? items : [];
-    const productIds = itemsArray
-      .map((it) => it.productId)
-      .filter(Boolean)
-      .map((id) => id.toString());
-    let missingProducts = [];
+    const itemsArray = Array.isArray(items) ? items : []; // Assicura che items sia un array, altrimenti array vuoto
+    const productIds = itemsArray //prodocutIds conterrà il risultato dell'intera catena
+      .map((it) => it.productId) 
+      .filter(Boolean)  
+      .map((id) => id.toString()); 
+
+    let missingProducts = []; //array vuoto
 
     if (productIds.length > 0) {
       const foundProducts = await Product.find({ _id: { $in: productIds } }).select("_id");
