@@ -58,18 +58,17 @@ const existingAdmin = await User.findOne({ role: "owner" });
   if (!existingAdmin) {
     const hashedPassword = await bcrypt.hash("admin123", 10);
     const adminUser = new User({
-  name: "Proprietario",
-  email: "admin@gmail.com",
-  password: hashedPassword,
-  role: "owner",
-});
+      name: "Proprietario",
+      email: "admin@gmail.com",
+      password: hashedPassword,
+      role: "owner",
+    });
     await adminUser.save();
     console.log("Utente admin creato con successo!");
   } else {
     console.log("Utente admin già presente.");
   }
 }
-
 createAdminUser();
 
 
@@ -122,15 +121,13 @@ app.post("/api/orders", verifyToken, async (req, res) => {
     // Messaggio Telegram
     const prodotti = items.map(i => `${i.name} × ${i.quantity}`).join("\n");
     const text = `
-*Nuovo ordine ricevuto!*
-Cliente: *${userName}*
-Totale: €${total.toFixed(2)}
-
-Prodotti:
-${prodotti}
-
-${new Date().toLocaleString()}
-`;
+      *Nuovo ordine ricevuto!*
+      Cliente: *${userName}*
+      Totale: €${total.toFixed(2)}
+      Prodotti:
+        ${prodotti}
+        ${new Date().toLocaleString()}
+    `;
 
     // Invio del messaggio Telegram
     // Aggiorna in tempo reale l’interfaccia dell’admin
@@ -158,7 +155,6 @@ ${new Date().toLocaleString()}
     res.status(500).json({ error: "Errore durante il salvataggio dell'ordine" });
   }
 });
-
 
 // ALTRE ROTTE
 app.use("/api/products", productRoutes);
