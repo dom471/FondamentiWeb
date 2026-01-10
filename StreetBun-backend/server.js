@@ -71,12 +71,11 @@ const existingAdmin = await User.findOne({ role: "owner" });
 }
 createAdminUser();
 
-
 // ROTTA PER LA CREAZIONE DI UN ORDINE
-app.post("/api/orders", verifyToken, async (req, res) => {
+app.post("/api/orders", verifyToken, async (req, res) => { //se arriva una richiesta POST a /api/orders, viene eseguito il middleware verifyToken e poi la funzione asincrona (se passa il middleware)
   try {
-    const { items, total } = req.body;
-    const userId = req.user?.id || req.user?._id || req.body.userId;
+    const { items, total } = req.body; //itmes = prodotti nel carrello, total = prezzo totale
+    const userId = req.user?.id || req.user?._id || req.body.userId; //per collegare l'ordine all'utente
 
     if (!userId) {
       return res
