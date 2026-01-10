@@ -176,9 +176,3 @@ mongoose
     );
   })
   .catch((err) => console.error("Errore connessione DB:", err));
-
-
-
-
-
-
