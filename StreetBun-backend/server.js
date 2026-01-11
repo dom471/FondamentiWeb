@@ -27,7 +27,7 @@ const app = express();
 app.use(cors()); 
 
 //permettono a Express di parsare le richieste arrivate al server
-app.use(express.json({ limit: "5mb" })); // Per evitare payload troppo grandi
+app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: true, limit: "5mb" }));
 
 // TELEGRAM BOT (webhook)
@@ -41,7 +41,7 @@ if (!BOT_TOKEN || !CHAT_ID) {
 const server = http.createServer(app); 
 const io = new Server(server, {
   cors: { //Configura il CORS specifico di Socket.IO
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://streetbun.vercel.app"],  
     methods: ["GET", "POST"],
   },
 });
