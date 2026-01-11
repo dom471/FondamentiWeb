@@ -41,7 +41,7 @@ if (!BOT_TOKEN || !CHAT_ID) {
 const server = http.createServer(app); 
 const io = new Server(server, {
   cors: { //Configura il CORS specifico di Socket.IO
-    origin: ["http://localhost:3000", "https://streetbun.vercel.app"],  
+    origin: ["http://localhost:3000", "https://streetbun.vercel.app"],  //connessione realtime "Visualizzazione ordini"
     methods: ["GET", "POST"],
   },
 });
@@ -83,23 +83,20 @@ app.post("/api/orders", verifyToken, async (req, res) => { //se arriva una richi
         .json({ error: "Utente sconosciuto. Effettua il login per prenotare." }); 
     }
 
-    // Verifica che tutti i prodotti esistano ancora nel DB
+    // Verifica che tutti i prodotti esistano nel DB prima di salvare l'ordine
     const itemsArray = Array.isArray(items) ? items : []; // Assicura che items sia un array, altrimenti array vuoto
     const productIds = itemsArray //prodocutIds conterrà il risultato dell'intera catena
       .map((it) => it.productId) 
       .filter(Boolean)  
       .map((id) => id.toString()); 
-
     let missingProducts = []; //array vuoto
-
-    if (productIds.length > 0) {
+    if (productIds.length > 0) {  
       const foundProducts = await Product.find({ _id: { $in: productIds } }).select("_id");
       const foundIds = new Set(foundProducts.map((p) => p._id.toString()));
       missingProducts = itemsArray
         .filter((it) => it.productId && !foundIds.has(it.productId.toString()))
         .map((it) => it.name || it.productId);
     }
-
     if (missingProducts.length > 0) {
       return res.status(400).json({
         error: "Alcuni prodotti non sono più disponibili",
