@@ -109,14 +109,16 @@ app.post("/api/orders", verifyToken, async (req, res) => { //se arriva una richi
     const savedOrder = await newOrder.save();
     await savedOrder.populate("userId", "name email role");
 
-    // Usa i dati gia popolati per la notifica
+    // Notifica in tempo reale ai client connessi tramite Socket.IO
+    io.emit("newOrder", savedOrder);
+    res.status(201).json(savedOrder);
+
+    // Prepara il messaggio Telegram
     const userName =
       savedOrder.userId?.name ||
       savedOrder.userId?.email ||
       "Utente sconosciuto";
-
-    // Messaggio Telegram
-    const prodotti = items.map(i => `${i.name} × ${i.quantity}`).join("\n");
+    const prodotti = items.map(i => `${i.name} x ${i.quantity}`).join("\n");
     const text = `
       *Nuovo ordine ricevuto!*
       Cliente: *${userName}*
@@ -125,12 +127,6 @@ app.post("/api/orders", verifyToken, async (req, res) => { //se arriva una richi
         ${prodotti}
         ${new Date().toLocaleString()}
     `;
-
-    // Invio del messaggio Telegram
-    // Aggiorna in tempo reale l’interfaccia dell’admin
-    io.emit("newOrder", savedOrder);
-
-    res.status(201).json(savedOrder);
 
     // Invio del messaggio Telegram in background per non rallentare la risposta
     if (BOT_TOKEN && CHAT_ID) {
@@ -147,19 +143,19 @@ app.post("/api/orders", verifyToken, async (req, res) => { //se arriva una richi
           console.error("Errore invio Telegram:", err.message);
         });
     }
+
   } catch (err) {
     console.error("Errore nella creazione dell'ordine:", err);
     res.status(500).json({ error: "Errore durante il salvataggio dell'ordine" });
   }
 });
 
-// ALTRE ROTTE
+// MONTAGGIO DEI ROUTER-MIDDLEWARE
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/auth", authRoutes);
 
-
-// CONNESSIONE A MONGODB
+// CONNESSIONE A MONGODB E AVVIO DEL SERVER
 mongoose
   .connect(
     "mongodb+srv://admin:StefAno6969@mongodb.r8cxkmw.mongodb.net/panificio?retryWrites=true&w=majority"
