@@ -1,4 +1,7 @@
+//DEFINIZIONE DEL MIDDLEWARE PER LA VERIFICA DEL TOKEN JWT
 import jwt from "jsonwebtoken";
+
+// Chiave segreta per la verifica del token (da variabile d'ambiente o di default)
 const JWT_SECRET = process.env.JWT_SECRET || "supersegreto123";
 
 export const verifyToken = (req, res, next) => {

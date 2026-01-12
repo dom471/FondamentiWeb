@@ -1,19 +1,20 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import readline from "readline";
 import User from "./models/User.js";
 
 const MONGO_URI = "mongodb+srv://admin:StefAno6969@mongodb.r8cxkmw.mongodb.net/panificio?retryWrites=true&w=majority&appName=MongoDB";
 
-async function addWorker() {
+async function addWorker(name, email, password) {
   try {
     await mongoose.connect(MONGO_URI);
     console.log("Connesso a MongoDB");
 
-    const hashedPassword = await bcrypt.hash("123456", 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const worker = new User({
-      name: "domenico",
-      email: "domenico@gmail.com",
+      name,
+      email,
       password: hashedPassword,
       role: "worker",
     });
@@ -26,4 +27,22 @@ async function addWorker() {
   }
 }
 
-addWorker();
+// Crea interfaccia per input interattivo
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+rl.question("Nome del lavoratore: ", (name) => {
+  rl.question("Email del lavoratore: ", (email) => {
+    rl.question("Password del lavoratore: ", (password) => {
+      if (!name || !email || !password) {
+        console.error("Tutti i campi sono obbligatori.");
+        rl.close();
+        return;
+      }
+      addWorker(name, email, password);
+      rl.close();
+    });
+  });
+});
