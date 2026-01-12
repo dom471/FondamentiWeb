@@ -1,3 +1,4 @@
+// Script per aggiungere lavoratori al database MongoDB da console
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import readline from "readline";
@@ -33,6 +34,7 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
+// Chiedi i dettagli del lavoratore
 rl.question("Nome del lavoratore: ", (name) => {
   rl.question("Email del lavoratore: ", (email) => {
     rl.question("Password del lavoratore: ", (password) => {
