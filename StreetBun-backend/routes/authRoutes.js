@@ -1,3 +1,4 @@
+// Route per autenticazione: login e registrazione
 import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -23,6 +24,7 @@ router.post("/login", async (req, res) => {
         .json({ error: "Ruolo selezionato non valido per questo account..." });
     }
 
+    // Genera il token JWT
     const token = jwt.sign(
       {
         id: user._id,
@@ -34,6 +36,7 @@ router.post("/login", async (req, res) => {
       { expiresIn: "2h" }
     );
 
+    // Invia il token al client
     res.json({
       message: "Login effettuato!",
       token,
@@ -41,7 +44,8 @@ router.post("/login", async (req, res) => {
       role: user.role,
       name: user.name,
     });
-  } catch (err) {
+  } 
+  catch (err) {
     console.error("Errore nel login:", err);
     res.status(500).json({ error: "Errore del server..." });
   }
@@ -57,6 +61,7 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ error: "Email già registrata!" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
+
     const newUser = new User({
       name,
       email,
@@ -66,7 +71,8 @@ router.post("/register", async (req, res) => {
 
     await newUser.save();
     res.status(201).json({ message: "Registrazione completata!" });
-  } catch (err) {
+  } 
+  catch (err) {
     console.error("Errore nella registrazione:", err);
     res.status(500).json({ error: "Errore del server..." });
   }

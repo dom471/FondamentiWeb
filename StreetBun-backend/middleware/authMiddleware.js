@@ -1,4 +1,4 @@
-//DEFINIZIONE DEL MIDDLEWARE PER LA VERIFICA DEL TOKEN JWT
+//DEFINIZIONE DEL MIDDLEWARE PER LA VERIFICA DEL TOKEN JWT (per proteggere le rotte del backend)
 import jwt from "jsonwebtoken";
 
 // Chiave segreta per la verifica del token (da variabile d'ambiente o di default)
