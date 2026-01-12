@@ -1,5 +1,7 @@
+// DEFINIZIONE DEL MODELLO ORDER PER MONGODB/MONGOOSE
 import mongoose from "mongoose";
 
+//  Schema per l'ordine
 const orderSchema = new mongoose.Schema(
   {
     items: [
@@ -24,4 +26,6 @@ const orderSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Order", orderSchema);
+// Creazione e esportazione del modello Order
+const Order = mongoose.model("Order", orderSchema);
+export default Order;

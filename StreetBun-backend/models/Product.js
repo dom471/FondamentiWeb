@@ -1,5 +1,7 @@
+// DEFINIZIONE DEL MODELLO PRODUCT PER MONGODB/MONGOOSE
 import mongoose from "mongoose";
 
+//  Schema per il prodotto
 const productSchema = new mongoose.Schema({
   name: { type: String, required: true },
   price: { type: Number, required: true },
@@ -8,5 +10,6 @@ const productSchema = new mongoose.Schema({
   available: { type: Boolean, default: true },
 });
 
+// Creazione e esportazione del modello Product
 const Product = mongoose.model("Product", productSchema);
 export default Product;

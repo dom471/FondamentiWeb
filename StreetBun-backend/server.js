@@ -41,7 +41,7 @@ if (!BOT_TOKEN || !CHAT_ID) {
 const server = http.createServer(app); 
 const io = new Server(server, {
   cors: { //Configura il CORS specifico di Socket.IO
-    origin: ["http://localhost:3000", "https://streetbun.vercel.app"],  
+    origin: ["http://localhost:3000", "https://streetbun.vercel.app"],  //connessione realtime "Visualizzazione ordini"
     methods: ["GET", "POST"],
   },
 });
@@ -83,23 +83,20 @@ app.post("/api/orders", verifyToken, async (req, res) => { //se arriva una richi
         .json({ error: "Utente sconosciuto. Effettua il login per prenotare." }); 
     }
 
-    // Verifica che tutti i prodotti esistano ancora nel DB
+    // Verifica che tutti i prodotti esistano nel DB prima di salvare l'ordine
     const itemsArray = Array.isArray(items) ? items : []; // Assicura che items sia un array, altrimenti array vuoto
     const productIds = itemsArray //prodocutIds conterrà il risultato dell'intera catena
       .map((it) => it.productId) 
       .filter(Boolean)  
       .map((id) => id.toString()); 
-
     let missingProducts = []; //array vuoto
-
-    if (productIds.length > 0) {
+    if (productIds.length > 0) {  
       const foundProducts = await Product.find({ _id: { $in: productIds } }).select("_id");
       const foundIds = new Set(foundProducts.map((p) => p._id.toString()));
       missingProducts = itemsArray
         .filter((it) => it.productId && !foundIds.has(it.productId.toString()))
         .map((it) => it.name || it.productId);
     }
-
     if (missingProducts.length > 0) {
       return res.status(400).json({
         error: "Alcuni prodotti non sono più disponibili",
@@ -112,14 +109,16 @@ app.post("/api/orders", verifyToken, async (req, res) => { //se arriva una richi
     const savedOrder = await newOrder.save();
     await savedOrder.populate("userId", "name email role");
 
-    // Usa i dati gia popolati per la notifica
+    // Notifica in tempo reale ai client connessi tramite Socket.IO
+    io.emit("newOrder", savedOrder);
+    res.status(201).json(savedOrder);
+
+    // Prepara il messaggio Telegram
     const userName =
       savedOrder.userId?.name ||
       savedOrder.userId?.email ||
       "Utente sconosciuto";
-
-    // Messaggio Telegram
-    const prodotti = items.map(i => `${i.name} × ${i.quantity}`).join("\n");
+    const prodotti = items.map(i => `${i.name} x ${i.quantity}`).join("\n");
     const text = `
       *Nuovo ordine ricevuto!*
       Cliente: *${userName}*
@@ -128,12 +127,6 @@ app.post("/api/orders", verifyToken, async (req, res) => { //se arriva una richi
         ${prodotti}
         ${new Date().toLocaleString()}
     `;
-
-    // Invio del messaggio Telegram
-    // Aggiorna in tempo reale l’interfaccia dell’admin
-    io.emit("newOrder", savedOrder);
-
-    res.status(201).json(savedOrder);
 
     // Invio del messaggio Telegram in background per non rallentare la risposta
     if (BOT_TOKEN && CHAT_ID) {
@@ -150,19 +143,19 @@ app.post("/api/orders", verifyToken, async (req, res) => { //se arriva una richi
           console.error("Errore invio Telegram:", err.message);
         });
     }
+
   } catch (err) {
     console.error("Errore nella creazione dell'ordine:", err);
     res.status(500).json({ error: "Errore durante il salvataggio dell'ordine" });
   }
 });
 
-// ALTRE ROTTE
+// MONTAGGIO DEI ROUTER-MIDDLEWARE
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/auth", authRoutes);
 
-
-// CONNESSIONE A MONGODB
+// CONNESSIONE A MONGODB E AVVIO DEL SERVER
 mongoose
   .connect(
     "mongodb+srv://admin:StefAno6969@mongodb.r8cxkmw.mongodb.net/panificio?retryWrites=true&w=majority"
