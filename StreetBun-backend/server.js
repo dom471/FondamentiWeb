@@ -116,8 +116,7 @@ app.post("/api/orders", verifyToken, async (req, res) => { //se arriva una richi
     // Prepara il messaggio Telegram
     const userName =
       savedOrder.userId?.name ||
-      savedOrder.userId?.email ||
-      "Utente sconosciuto";
+      savedOrder.userId?.email
     const prodotti = items.map(i => `${i.name} x ${i.quantity}`).join("\n");
     const text = `
       *Nuovo ordine ricevuto!*
