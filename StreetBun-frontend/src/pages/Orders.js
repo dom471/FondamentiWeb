@@ -87,7 +87,12 @@ function Orders() {
       }
     } catch (err) {
       console.error("Errore:", err);
-      setMessage("Impossibile contattare il server");
+      if (err.message === "Token invalido, logout effettuato") {
+        setMessage("Sessione scaduta. Effettua nuovamente il login.");
+        navigate("/login");
+      } else {
+        setMessage("Impossibile contattare il server");
+      }
     } finally {
       setIsSubmitting(false);
     }

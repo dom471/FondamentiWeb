@@ -19,6 +19,6 @@ export const verifyToken = (req, res, next) => {
     next();
   } catch (err) {
     console.error("Token non valido:", err);
-    res.status(403).json({ error: "Token non valido o scaduto." });
+    res.status(401).json({ error: "Token non valido o scaduto." });
   }
 };
