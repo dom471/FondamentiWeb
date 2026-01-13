@@ -12,57 +12,26 @@ export const AuthProvider = ({ children }) => {
 
   //Al caricamento controlla se ci sono token salvati per vari ruoli
   useEffect(() => {
-    const checkAndSetToken = (tokenKey, timestampKey) => {
-      const token = localStorage.getItem(tokenKey);
-      const timestamp = localStorage.getItem(timestampKey);
+    // Proviamo a leggere tutti e 3 i token
+    const ownerToken = localStorage.getItem("token_owner");
+    const workerToken = localStorage.getItem("token_worker");
+    const customerToken = localStorage.getItem("token_customer");
 
-      if (!token || token === "undefined" || token === "null") {
-        return null;
-      }
+    const token = ownerToken || workerToken || customerToken;
 
-      if (!timestamp) {
-        // Se non c'è timestamp, considera invalido e rimuovi
-        localStorage.removeItem(tokenKey);
-        return null;
-      }
-
-      const now = Date.now();
-      const tokenAge = now - parseInt(timestamp, 10);
-      const maxAge = 60 * 1000; // 2 ore in millisecondi
-
-      if (tokenAge > maxAge) {
-        // Token scaduto, rimuovi
-        localStorage.removeItem(tokenKey);
-        localStorage.removeItem(timestampKey);
-        console.log(`Token ${tokenKey} scaduto e rimosso`);
-        return null;
-      }
-
-      try {
-        const base64Url = token.split(".")[1];
-        if (!base64Url) return null;
-        const decoded = JSON.parse(atob(base64Url));
-        return decoded;
-      } catch (err) {
-        console.error("Errore parsing token:", err);
-        // Rimuovi token invalido
-        localStorage.removeItem(tokenKey);
-        localStorage.removeItem(timestampKey);
-        return null;
-      }
-    };
-
-    const ownerUser = checkAndSetToken("token_owner", "token_owner_timestamp");
-    const workerUser = checkAndSetToken("token_worker", "token_worker_timestamp");
-    const customerUser = checkAndSetToken("token_customer", "token_customer_timestamp");
-
-    const user = ownerUser || workerUser || customerUser;
-
-    if (user) {
-      setUser(user);
-      console.log("Login automatico:", user);
-    } else {
+    if (!token || token === "undefined" || token === "null") {
       console.log("Nessun token valido trovato");
+      return;
+    }
+
+    try {
+      const base64Url = token.split(".")[1];
+      if (!base64Url) return;
+      const decoded = JSON.parse(atob(base64Url));
+      setUser(decoded);
+      console.log("Login automatico:", decoded);
+    } catch (err) {
+      console.error("Errore parsing token:", err);
     }
   }, []);
 
@@ -74,18 +43,13 @@ export const AuthProvider = ({ children }) => {
       const decoded = JSON.parse(atob(token.split(".")[1]));
       setUser(decoded);
 
-      const timestamp = Date.now();
-
       // Ogni ruolo ha la sua chiave nel localStorage
       if (decoded.role === "owner") {
         localStorage.setItem("token_owner", token);
-        localStorage.setItem("token_owner_timestamp", timestamp);
       } else if (decoded.role === "worker") {
         localStorage.setItem("token_worker", token);
-        localStorage.setItem("token_worker_timestamp", timestamp);
       } else {
         localStorage.setItem("token_customer", token);
-        localStorage.setItem("token_customer_timestamp", timestamp);
       }
 
     } catch (err) {
@@ -97,13 +61,10 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     if (user?.role === "owner") {
       localStorage.removeItem("token_owner");
-      localStorage.removeItem("token_owner_timestamp");
     } else if (user?.role === "worker") {
       localStorage.removeItem("token_worker");
-      localStorage.removeItem("token_worker_timestamp");
     } else {
       localStorage.removeItem("token_customer");
-      localStorage.removeItem("token_customer_timestamp");
     }
     setUser(null);
   };
@@ -116,8 +77,31 @@ export const AuthProvider = ({ children }) => {
     return null;
   };
 
+  //Funzione per fare richieste autenticate, che fa logout se token invalido (401)
+  const authenticatedFetch = async (url, options = {}) => {
+    const token = getToken();
+    if (!token) {
+      throw new Error("No token available");
+    }
+
+    const headers = {
+      ...options.headers,
+      Authorization: `Bearer ${token}`,
+    };
+
+    const response = await fetch(url, { ...options, headers });
+
+    if (response.status === 401) {
+      // Token invalido, fai logout
+      logout();
+      throw new Error("Token invalido, logout effettuato");
+    }
+
+    return response;
+  };
+
   return (
-    <AuthContext.Provider value={{ user, setUser, login, logout, getToken }}>
+    <AuthContext.Provider value={{ user, setUser, login, logout, getToken, authenticatedFetch }}>
       {children}
     </AuthContext.Provider>
   );

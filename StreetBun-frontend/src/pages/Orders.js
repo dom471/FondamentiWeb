@@ -7,7 +7,7 @@ import API_URL from "../config";
 
 function Orders() {
   const { cart, removeFromCart, clearCart } = useContext(CartContext);
-  const { user, getToken } = useContext(AuthContext);
+  const { user, authenticatedFetch } = useContext(AuthContext);
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -22,13 +22,6 @@ function Orders() {
 
     if (!user) {
       alert("Devi effettuare il login per prenotare.");
-      navigate("/login");
-      return;
-    }
-
-    const token = getToken();
-    if (!token || token === "undefined" || token === "null") {
-      alert("Sessione scaduta, effettua di nuovo il login.");
       navigate("/login");
       return;
     }
@@ -49,11 +42,10 @@ function Orders() {
         total,
       };
 
-      const response = await fetch(`${API_URL}/api/orders`, {
+      const response = await authenticatedFetch(`${API_URL}/api/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(order),
       });
