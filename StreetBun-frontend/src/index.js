@@ -10,9 +10,11 @@ import { CartProvider } from "./context/CartContext";
 
 // Crea la radice dell'applicazione React e la rende nel DOM
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+// Avvolge l'applicazione con i provider di contesto e la renderizza
 root.render(
-  <React.StrictMode>
-    <AuthProvider>
+  <React.StrictMode>  
+    <AuthProvider> 
       <CartProvider>
         <App />
       </CartProvider>
