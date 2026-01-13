@@ -1,4 +1,4 @@
-// Context per gestire l’autenticazione degli utenti con ruoli diversi: owner, worker, customer
+// Per gestire l’autenticazione degli utenti con ruoli diversi: owner, worker, customer
 import { createContext, useEffect, useState } from "react";
 
 // Crea ed esporta il context
