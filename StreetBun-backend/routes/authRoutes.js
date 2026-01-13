@@ -33,7 +33,7 @@ router.post("/login", async (req, res) => {
         role: user.role,
       },
       JWT_SECRET,
-      { expiresIn: "1m" }
+      { expiresIn: "1h" }
     );
 
     // Invia il token al client
