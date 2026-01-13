@@ -88,7 +88,7 @@ function Orders() {
     } catch (err) {
       console.error("Errore:", err);
       if (err.message === "Token invalido, logout effettuato") {
-        setMessage("Sessione scaduta. Effettua nuovamente il login.");
+        alert("Sessione scaduta. Effettua nuovamente il login.");
         navigate("/login");
       } else {
         setMessage("Impossibile contattare il server");
