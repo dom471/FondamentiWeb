@@ -6,7 +6,6 @@ import API_URL from "../config";
 const EMPTY_PRODUCT = { name: "", price: "", image: "", description: "" };
 
 function AdminProducts() {
-  const { user } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
   const [newProduct, setNewProduct] = useState(EMPTY_PRODUCT);
   const [imagePreview, setImagePreview] = useState("");
