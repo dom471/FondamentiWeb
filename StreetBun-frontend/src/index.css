@@ -1,13 +1,13 @@
+/* Stili di base per l'applicazione React */
 body {
-  margin: 0;
+  margin: 0; 
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    sans-serif; /* font nativo della piattaforma --> fallback su altri font */
+  -webkit-font-smoothing: antialiased; /* rende il testo più leggibile e "liscio" */
+  -moz-osx-font-smoothing: grayscale /* migliora la resa del testo su macOS */
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace; /* list di font con fallback */
 }
