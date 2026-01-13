@@ -28,7 +28,7 @@ function App() {
         <img src="/StreetBun-Sfondo.png"/>
       </div>
       <main className="content">
-        // definisce le route e i componenti associati
+        {/* definisce le route e i componenti associati */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
