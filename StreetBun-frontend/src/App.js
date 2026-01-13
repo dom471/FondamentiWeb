@@ -1,3 +1,4 @@
+// definisce la struttura generale dell’app e le route
 import { useContext } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header";
@@ -14,17 +15,20 @@ import AdminOrders from "./pages/AdminOrders";
 import Recipes from "./pages/Recipes";
 import { AuthContext } from "./context/AuthContext";
 
+// componente principale dell’applicazione
 function App() {
+  // ottiene l’utente autenticato dal contesto
   const { user } = useContext(AuthContext);
   const canViewHistory = user?.role === "owner";
-
+  // definisce le route dell’applicazione
   return (
     <Router>
       <Header />
       <div className="background-container">
-        <img src="/StreetBun-Sfondo.png" alt="Sfondo StreetBun" />
+        <img src="/StreetBun-Sfondo.png"/>
       </div>
       <main className="content">
+        // definisce le route e i componenti associati
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
