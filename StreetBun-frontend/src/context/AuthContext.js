@@ -1,32 +1,68 @@
+//Context per gestire l’autenticazione degli utenti con ruoli diversi: owner, worker, customer
 import { createContext, useEffect, useState } from "react";
 
+//Crea ed esporta il context
 export const AuthContext = createContext();
 
+//Definisce ed esporta il provider del context
 export const AuthProvider = ({ children }) => {
+  
+  //Stato per memorizzare l’utente autenticato
   const [user, setUser] = useState(null);
 
   //Al caricamento controlla se ci sono token salvati per vari ruoli
   useEffect(() => {
-    // Proviamo a leggere tutti e 3 i token
-    const ownerToken = localStorage.getItem("token_owner");
-    const workerToken = localStorage.getItem("token_worker");
-    const customerToken = localStorage.getItem("token_customer");
+    const checkAndSetToken = (tokenKey, timestampKey) => {
+      const token = localStorage.getItem(tokenKey);
+      const timestamp = localStorage.getItem(timestampKey);
 
-    const token = ownerToken || workerToken || customerToken;
+      if (!token || token === "undefined" || token === "null") {
+        return null;
+      }
 
-    if (!token || token === "undefined" || token === "null") {
+      if (!timestamp) {
+        // Se non c'è timestamp, considera invalido e rimuovi
+        localStorage.removeItem(tokenKey);
+        return null;
+      }
+
+      const now = Date.now();
+      const tokenAge = now - parseInt(timestamp, 10);
+      const maxAge = 2 * 60 * 60 * 1000; // 2 ore in millisecondi
+
+      if (tokenAge > maxAge) {
+        // Token scaduto, rimuovi
+        localStorage.removeItem(tokenKey);
+        localStorage.removeItem(timestampKey);
+        console.log(`Token ${tokenKey} scaduto e rimosso`);
+        return null;
+      }
+
+      try {
+        const base64Url = token.split(".")[1];
+        if (!base64Url) return null;
+        const decoded = JSON.parse(atob(base64Url));
+        return decoded;
+      } catch (err) {
+        console.error("Errore parsing token:", err);
+        // Rimuovi token invalido
+        localStorage.removeItem(tokenKey);
+        localStorage.removeItem(timestampKey);
+        return null;
+      }
+    };
+
+    const ownerUser = checkAndSetToken("token_owner", "token_owner_timestamp");
+    const workerUser = checkAndSetToken("token_worker", "token_worker_timestamp");
+    const customerUser = checkAndSetToken("token_customer", "token_customer_timestamp");
+
+    const user = ownerUser || workerUser || customerUser;
+
+    if (user) {
+      setUser(user);
+      console.log("Login automatico:", user);
+    } else {
       console.log("Nessun token valido trovato");
-      return;
-    }
-
-    try {
-      const base64Url = token.split(".")[1];
-      if (!base64Url) return;
-      const decoded = JSON.parse(atob(base64Url));
-      setUser(decoded);
-      console.log("Login automatico:", decoded);
-    } catch (err) {
-      console.error("Errore parsing token:", err);
     }
   }, []);
 
@@ -38,13 +74,18 @@ export const AuthProvider = ({ children }) => {
       const decoded = JSON.parse(atob(token.split(".")[1]));
       setUser(decoded);
 
+      const timestamp = Date.now();
+
       // Ogni ruolo ha la sua chiave nel localStorage
       if (decoded.role === "owner") {
         localStorage.setItem("token_owner", token);
+        localStorage.setItem("token_owner_timestamp", timestamp);
       } else if (decoded.role === "worker") {
         localStorage.setItem("token_worker", token);
+        localStorage.setItem("token_worker_timestamp", timestamp);
       } else {
         localStorage.setItem("token_customer", token);
+        localStorage.setItem("token_customer_timestamp", timestamp);
       }
 
     } catch (err) {
@@ -56,10 +97,13 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     if (user?.role === "owner") {
       localStorage.removeItem("token_owner");
+      localStorage.removeItem("token_owner_timestamp");
     } else if (user?.role === "worker") {
       localStorage.removeItem("token_worker");
+      localStorage.removeItem("token_worker_timestamp");
     } else {
       localStorage.removeItem("token_customer");
+      localStorage.removeItem("token_customer_timestamp");
     }
     setUser(null);
   };
@@ -77,7 +121,4 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-
 };
-
-
