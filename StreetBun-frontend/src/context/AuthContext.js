@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 
       const now = Date.now();
       const tokenAge = now - parseInt(timestamp, 10);
-      const maxAge = 2 * 60 * 60 * 1000; // 2 ore in millisecondi
+      const maxAge = 60 * 1000; // 2 ore in millisecondi
 
       if (tokenAge > maxAge) {
         // Token scaduto, rimuovi
