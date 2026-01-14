@@ -1,20 +1,22 @@
+// HEADER DELLA PAGINA
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./Header.css";
 
+// Componente Header della pagina web
 function Header() {
   const navigate = useNavigate();
   const { user, logout } = useContext(AuthContext);
-
+  // Funzione per gestire il logout
   const handleLogout = () => {
     logout();
     navigate("/login");
   };
-
+  // Ritorna il JSX del componente Header
   return (
-    <header className="header">
+    <header className="header">   
       <h1><img src="/StreetBun-Icona.png"/>StreetBun</h1>
       <div className="header-actions">
         {user && (
@@ -34,11 +36,9 @@ function Header() {
             {user?.role === "owner" && <li><Link to="/admin">Gestione prodotti</Link></li>}
             {(user?.role === "owner" || user?.role === "worker") && <li><Link to="/admin/orders">Visualizzazione Ordini</Link></li>}
             {user?.role === "worker" && <li><Link to="/ricette">Ricettario</Link></li>}
+            {user?.role === "owner" && <li><Link to="/history">Resoconto</Link></li>}
             {user ? (
-              <>
-                {user.role === "owner" && <li><Link to="/history">Resoconto</Link></li>}
-                <li><button onClick={handleLogout}>Logout</button></li>
-              </>
+              <li><button onClick={handleLogout}>Logout</button></li>
             ) : (
               <>
                 <li><Link to="/login">Login</Link></li>
