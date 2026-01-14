@@ -85,7 +85,7 @@ app.post("/api/orders", verifyToken, async (req, res) => { //se arriva una richi
 
     // Verifica che tutti i prodotti esistano nel DB prima di salvare l'ordine
     const itemsArray = Array.isArray(items) ? items : []; // Assicura che items sia un array, altrimenti array vuoto
-    const productIds = itemsArray //prodocutIds conterrà il risultato dell'intera catena
+    const productIds = itemsArray //productIds conterrà il risultato dell'intera catena
       .map((it) => it.productId) 
       .filter(Boolean)  
       .map((id) => id.toString()); 
