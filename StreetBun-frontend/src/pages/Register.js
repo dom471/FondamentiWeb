@@ -1,26 +1,32 @@
+// Pagina della registrazione
 import { useState } from "react";
 import "./Register.css";
 import API_URL from "../config";
 
+// Componente Register
 function Register() {
+  // Stati
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
+  // Gestione della registrazione
   const handleRegister = async (e) => {
     e.preventDefault();
 
+    // Chiamata API per la registrazione
     try {
-      const response = await fetch(`${API_URL}/api/auth/register`, {
+      const res = await fetch(`${API_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password, role: "customer" }),
       });
+      // Risposta in formato JSON
+      const data = await res.json();
 
-      const data = await response.json();
-
-      if (response.ok) {
+      // Se la registrazione ha successo
+      if (res.ok) { //res.ok se lo status HTTP è tra 200 e 299
         setMessage("Registrazione completata con successo!");
         setName("");
         setEmail("");
@@ -34,6 +40,7 @@ function Register() {
     }
   };
 
+  // Render del componente
   return (
     <div className="register-container">
       <h2>Registrati</h2>
@@ -70,8 +77,8 @@ function Register() {
 
         <button type="submit">Registrati</button>
       </form>
-
-      {message && <p style={{ marginTop: "1rem" }}>{message}</p>}
+      {/* Messaggio di stato del login */}
+      {message && <p className="register-message">{message}</p>}
     </div>
   );
 }

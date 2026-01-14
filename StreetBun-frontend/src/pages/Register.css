@@ -54,3 +54,7 @@
 .register-form button:hover {
   background-color: #292d15;
 }
+
+.register-message {
+  margin-top: 1rem;
+}
