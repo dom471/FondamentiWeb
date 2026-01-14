@@ -1,5 +1,5 @@
+// FOOTER DELLA PAGINA
 import "./Footer.css";
-
 
 function Footer() {
   return (

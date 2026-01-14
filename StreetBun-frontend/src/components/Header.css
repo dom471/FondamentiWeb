@@ -1,11 +1,11 @@
 .header {
   background-color: #1a1a1a;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding: 1rem; /* dimensione del padding = dimensione del font */
+  display: flex; /* (logo + testo) e menù sulla stessa riga */
+  justify-content: space-between; /*il primo va a sx, il secondo a dx */
+  align-items: center; /* centra in altezza (logo + testo) e menù */
   color: #f7f3ef;
-  position: fixed;
+  position: fixed; /* posiziona l'header in alto (rimane fermo) */
   top: 0;
   left: 0;
   right: 0;
@@ -14,44 +14,42 @@
 
 .header h1 {
   margin: 0;
-  line-height: 1;
-  display: flex;
-  align-items: center;
+  line-height: 1; /* altezza della riga a 1 x dimensione font */
+  display: flex; /* logo e testo sulla stessa riga */
+  align-items: center; /* centra in altezza logo e testo */
 }
 
 .header h1 img {
-  height: 2em;
+  height: 2em; /* altezza dell'immagine = 2 x dimensione font */
   border-radius: 50%;
   margin-right: 10px;
-  vertical-align: middle;
+  vertical-align: middle; /* allinea verticalmente l'immagine rispetto al testo */
 }
 
-.header nav a:hover {
-  text-decoration: underline;
-  color: #e1dbd5;
-}
-
+/* scritta "saluto utente" + menù */
 .header-actions {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
+/* scritta "saluto utente" */
 .user-greeting {
   color: #f7f3ef;
   font-size: 0.95rem;
-  white-space: nowrap;
+  white-space: nowrap; /* la scritta non va a capo */
 }
 
+/* menù */
 .hamburger-menu {
-  position: relative;
+  position: relative; /* punto di riferimento di .dropdown-menu */
   cursor: pointer;
 }
 
+/* icona menù */
 .hamburger-icon {
   color: #f7f3ef;
-  cursor: pointer;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease; /* transizione del colore dell'icona fluida */
   vertical-align: middle;
 }
 
@@ -59,46 +57,48 @@
   color: #e1dbd5;
 }
 
+/* menù "aperto" */
 .dropdown-menu {
-  position: absolute;
-  top: 100%;
+  position: absolute; /* posizionato rispetto a .hamburger-menu */
+  top: 100%; /* subito sotto .hamburger-menu */
   right: 0;
   background-color: #1a1a1a;
   border: 1px solid #f7f3ef;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  list-style: none;
-  padding: 10px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* ombra con 0 spostamento orizzontale, 4px verso il basso, 8 px sfocatura e 30% opacità */
+  list-style: none; /* lista senza pallini/numeri */
+  padding: 10px 0; /* padding verticale di 10px, orizzontale 0 */
   margin: 0;
-  display: none;
+  display: none; /* nascosto di default */
   z-index: 1000;
   min-width: 220px;
 }
 
 .dropdown-menu li {
   padding: 0;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease; /* transizione del background-color fluida */
 }
 
 .dropdown-menu li:hover {
   background-color: #333;
 }
 
-.dropdown-menu li > * {
+/* link del menù */
+.dropdown-menu li > * { 
   color: #f7f3ef;
-  text-decoration: none;
-  display: block;
+  text-decoration: none; /* rimuove il sottolineato */
+  display: block; /* occupa tutta la larghezza disponibile e va a capo */
   padding: 12px 20px;
   background: none;
   border: none;
   cursor: pointer;
-  font-family: inherit;
-  font-size: inherit;
+  font-family: inherit; /* eredita il font del padre */
+  font-size: inherit; /* eredita la dimensione del font del padre */
   text-align: left;
   width: 100%;
   margin: 0;
-  appearance: none;
-  -webkit-appearance: none;
+  appearance: none; /* rimuove lo stile predefinito del browser */
+  -webkit-appearance: none; /* rimuove lo stile predefinito del browser per Safari */
 }
 
 .dropdown-menu li > *:hover {
@@ -106,5 +106,5 @@
 }
 
 .hamburger-menu:hover .dropdown-menu {
-  display: block;
+  display: block; /* mostra il menù al passaggio del mouse */
 }
