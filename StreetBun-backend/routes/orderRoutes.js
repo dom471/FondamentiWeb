@@ -4,63 +4,9 @@ import Order from "../models/Order.js";
 import Product from "../models/Product.js";
 import User from "../models/User.js";
 import { verifyToken } from "../middleware/authMiddleware.js";
+import axios from "axios";
 
 const router = express.Router();
-
-// POST /api/orders, crea un nuovo ordine
-router.post("/", verifyToken, async (req, res) => {
-  try {
-    const { items, total } = req.body;
-    // Verifica che l'utente sia autenticato correttamente
-    if (!req.user || !(req.user.id || req.user._id)) { 
-      return res
-        .status(401)
-        .json({ error: "Utente sconosciuto. Effettua il login per prenotare." });
-    }
-
-    // Verifica che tutti i prodotti esistano ancora nel DB
-    const missingProducts = [];
-    if (Array.isArray(items)) {
-      for (const it of items) {
-        if (it.productId) {
-          try {
-            const p = await Product.findById(it.productId).select("_id name");
-            if (!p) missingProducts.push(it.name || it.productId);
-          } 
-          catch (e) {
-            missingProducts.push(it.name || it.productId);
-          }
-        }
-      }
-    }
-
-    // Se ci sono prodotti mancanti, rispondi con un errore
-    if (missingProducts.length > 0) {
-      return res.status(400).json({
-        error: "Alcuni prodotti non sono più disponibili",
-        missing: missingProducts,
-      });
-    }
-
-    // Crea e salva il nuovo ordine
-    const newOrder = new Order({
-      items,
-      total,
-      userId: req.user.id || req.user._id,
-      status: "pending",
-    });
-
-    // Salva l'ordine e popola i dettagli dell'utente
-    const savedOrder = await newOrder.save();
-    await savedOrder.populate("userId", "name email role");
-
-    res.status(201).json(savedOrder);
-  } 
-  catch (err) {
-    console.error("Errore creazione ordine:", err);
-    res.status(500).json({ error: "Errore durante il salvataggio dell'ordine" });
-  }
-});
 
 // Funzione per risolvere il ruolo dell'utente
 const resolveRole = async (req) => {
@@ -141,4 +87,82 @@ router.put("/:id/cancel", verifyToken, async (req, res) => {
   }
 });
 
-export default router;
+// Esportiamo una funzione che riceve l'istanza di Socket.IO (`io`) e registra
+// la route POST che emette l'evento realtime e invia la notifica Telegram.
+export default (io) => {
+  router.post("/", verifyToken, async (req, res) => {
+    try {
+      const { items, total } = req.body;
+      const userId = req.user?.id || req.user?._id || req.body.userId;
+
+      if (!userId) {
+        return res
+          .status(401)
+          .json({ error: "Utente sconosciuto. Effettua il login per prenotare." });
+      }
+
+      const itemsArray = Array.isArray(items) ? items : [];
+      const productIds = itemsArray
+        .map((it) => it.productId)
+        .filter(Boolean)
+        .map((id) => id.toString());
+
+      let missingProducts = [];
+      if (productIds.length > 0) {
+        const foundProducts = await Product.find({ _id: { $in: productIds } }).select(
+          "_id"
+        );
+        const foundIds = new Set(foundProducts.map((p) => p._id.toString()));
+        missingProducts = itemsArray
+          .filter((it) => it.productId && !foundIds.has(it.productId.toString()))
+          .map((it) => it.name || it.productId);
+      }
+
+      if (missingProducts.length > 0) {
+        return res.status(400).json({
+          error: "Alcuni prodotti non sono più disponibili",
+          missing: missingProducts,
+        });
+      }
+
+      const newOrder = new Order({ items, total, userId,});
+      const savedOrder = await newOrder.save();
+      await savedOrder.populate("userId", "name email role");
+
+      // Notifica realtime ai client connessi
+      if (io && typeof io.emit === "function") {
+        io.emit("newOrder", savedOrder);
+      }
+      res.status(201).json(savedOrder);
+
+      // Preparazione e invio messaggio Telegram (in background)
+      const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+      const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+      const userName = savedOrder.userId?.name || savedOrder.userId?.email;
+      const prodotti = itemsArray.map((i) => `${i.name} x ${i.quantity}`).join("\n");
+      const text = `\n*Nuovo ordine ricevuto!*\nCliente: *${userName}*\nTotale: €${total.toFixed(
+        2
+      )}\nProdotti:\n  ${prodotti}\n  ${new Date().toLocaleString()}\n`;
+
+      if (BOT_TOKEN && CHAT_ID) {
+        axios
+          .post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            chat_id: CHAT_ID,
+            text,
+            parse_mode: "Markdown",
+          })
+          .then(() => {
+            console.log("Notifica Telegram inviata con successo!");
+          })
+          .catch((err) => {
+            console.error("Errore invio Telegram:", err.message);
+          });
+      }
+    } catch (err) {
+      console.error("Errore nella creazione dell'ordine:", err);
+      res.status(500).json({ error: "Errore durante il salvataggio dell'ordine" });
+    }
+  });
+
+  return router;
+};
