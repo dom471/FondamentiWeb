@@ -1,42 +1,42 @@
+// Pagina del login
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import API_URL from "../config";
 
+// Componente Login
 function Login() {
+  // Stati
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("customer");
   const [message, setMessage] = useState("");
+  const [role, setRole] = useState("customer");
+  // Contesto di autenticazione
   const { login } = useContext(AuthContext);
+  // Navigazione tra pagine
   const navigate = useNavigate();
 
+  // Gestione del login
   const handleLogin = async (e) => {
+    // Per bloccare il refresh della pagina
     e.preventDefault();
+
+    // Chiamata API per il login
     try {
       const res = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, role }),
       });
-
+      // Risposta in formato JSON
       const data = await res.json();
 
-      if (res.ok) {
+      // Se il login ha successo
+      if (res.ok) { //res.ok se lo status HTTP è tra 200 e 299
         login(data.token);
         setMessage("Login effettuato con successo!");
-
-        switch (data.role) {
-          case "owner":
-            navigate("/admin/orders");
-            break;
-          case "worker":
-            navigate("/ricette");
-            break;
-          default:
-            navigate("/");
-        }
+        navigate("/");
       } else {
         setMessage(data.error || "Credenziali non valide");
       }
@@ -46,6 +46,7 @@ function Login() {
     }
   };
 
+  // Render del componente
   return (
     <div className="login-container">
       <h2>Login</h2>
@@ -81,8 +82,8 @@ function Login() {
 
         <button type="submit">Accedi</button>
       </form>
-
-      {message && <p style={{ marginTop: "1rem" }}>{message}</p>}
+      {/* Messaggio di stato del login */}
+      {message && <p className="login-message">{message}</p>}
     </div>
   );
 }
