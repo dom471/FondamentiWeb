@@ -50,9 +50,8 @@ function Home() {
 
   return (
     <Box sx={{ position: "relative", overflow: "hidden" }}>
-      <Container sx={{ py: 5, position: "relative" }}>
+      <Container sx={{ py: 5 }}>
         <Box
-          aria-hidden="true"
           sx={{
             position: "absolute",
             inset: 0,
@@ -65,7 +64,7 @@ function Home() {
         {/* Sezione 1: Titolo e concept */}
         <Box sx={{ textAlign: 'center', mb: 5 }}>
         <Typography variant="h2" gutterBottom sx={{ fontWeight: 'bold', color: '#AA3A2C', textShadow: '3px 3px 6px rgba(0,0,0,0.8)' }}>
-          StreetBun – Panini street food
+          StreetBun - Panini street food
         </Typography>
         <Typography variant="h5" sx={{ color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }} paragraph>
           Scopri il gusto autentico dei panini artigianali preparati con ingredienti freschi e locali, perfetti per una pausa veloce e deliziosa in movimento.
