@@ -1,9 +1,9 @@
 footer {
   background-color: #1a1a1a;
   padding: 0.7rem;
-  text-align: center;
+  text-align: center; /* centra il testo orizzontalmente */
   color: #f7f3ef;
-  position: fixed;
+  position: fixed; /* posiziona il footer in basso (rimane fermo) */
   bottom: 0;
   left: 0;
   right: 0;
