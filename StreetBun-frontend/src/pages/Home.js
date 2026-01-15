@@ -49,8 +49,8 @@ function Home() {
   };
 
   return (
-    <Box sx={{ position: "relative", overflow: "hidden" }}>
-      <Container sx={{ py: 5 }}>
+    <Box sx={{ overflow: "hidden" }}>
+      <Container sx={{ position: "relative", py: 5 }}>
         <Box
           sx={{
             position: "absolute",
