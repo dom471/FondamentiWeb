@@ -1,16 +1,20 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
+// Pagina "Gestione Prodotti" del menù (solo accessibile ad admin)
+import { useEffect, useState } from "react";
 import "./AdminProducts.css";
 import API_URL from "../config";
 
+// Prodotto vuoto di default per il form di aggiunta
 const EMPTY_PRODUCT = { name: "", price: "", image: "", description: "" };
 
+// Componente principale 
 function AdminProducts() {
+  // Stati
   const [products, setProducts] = useState([]);
   const [newProduct, setNewProduct] = useState(EMPTY_PRODUCT);
   const [imagePreview, setImagePreview] = useState("");
   const [message, setMessage] = useState("");
 
+  // Caricamento prodotti all'inizio
   useEffect(() => {
     fetch(`${API_URL}/api/products`)
       .then((res) => res.json())
@@ -18,6 +22,7 @@ function AdminProducts() {
       .catch((err) => console.error("Errore nel caricamento prodotti:", err));
   }, []);
 
+  // Gestione dell'inserimento dell'immagine
   const handleImageFile = (event) => {
     const file = event.target.files?.[0];
     if (!file) {
@@ -26,9 +31,9 @@ function AdminProducts() {
     if (file.size > 1024 * 1024) { // 1MB limit
       setMessage("Immagine troppo grande! Max 1MB.");
       return;
-    }
-    const reader = new FileReader();
-    reader.onloadend = () => {
+    } 
+    const reader = new FileReader(); // per leggere il contenuto del file 
+    reader.onloadend = () => { // Evento che parte quando la lettura del file è finita
       const result = typeof reader.result === "string" ? reader.result : "";
       setNewProduct((prev) => ({ ...prev, image: result }));
       setImagePreview(result);
@@ -36,22 +41,26 @@ function AdminProducts() {
     reader.readAsDataURL(file);
   };
 
+  // Reset form
   const resetForm = () => {
     setNewProduct(EMPTY_PRODUCT);
     setImagePreview("");
   };
 
+  // Aggiunta nuovo prodotto
   const handleAdd = async () => {
     if (!newProduct.name || !newProduct.description.trim() || !newProduct.price) {
-      setMessage("Inserisci nome, descrizione e prezzo.");
+      setMessage("Compilare tutti i campi richiesti.");
       return;
     }
-
+    
+    // Preparazione del payload da inviare al backend
     const payload = {
       ...newProduct,
       price: Number(newProduct.price),
     };
 
+    // Chiamata al backend per creare il prodotto
     try {
       const res = await fetch(`${API_URL}/api/products`, {
         method: "POST",
@@ -59,7 +68,7 @@ function AdminProducts() {
         body: JSON.stringify(payload),
       });
       const data = await res.json();
-      if (res.ok) {
+      if (res.ok) { 
         const createdProduct = {
           ...data,
           price: Number(data.price),
@@ -76,11 +85,13 @@ function AdminProducts() {
     }
   };
 
+  // Eliminazione prodotto
   const handleDelete = async (id) => {
     await fetch(`${API_URL}/api/products/${id}`, { method: "DELETE" });
     setProducts((prev) => prev.filter((p) => p._id !== id));
   };
 
+  // Render della pagina
   return (
     <div className="admin-container">
       <h2>Gestione Prodotti</h2>
@@ -94,9 +105,7 @@ function AdminProducts() {
         <textarea
           placeholder="Descrizione prodotto"
           value={newProduct.description}
-          onChange={(e) =>
-            setNewProduct({ ...newProduct, description: e.target.value })
-          }
+          onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
           rows={3}
         />
         <input
@@ -107,7 +116,7 @@ function AdminProducts() {
         />
         <input type="file" accept="image/*" onChange={handleImageFile} />
         {imagePreview && (
-          <img src={imagePreview} alt="Anteprima prodotto" className="product-preview" />
+          <img src={imagePreview} alt="Anteprima prodotto" />
         )}
         <button onClick={handleAdd}>Aggiungi</button>
       </div>
