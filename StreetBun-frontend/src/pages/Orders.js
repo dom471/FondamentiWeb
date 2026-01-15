@@ -1,34 +1,48 @@
-﻿import { useContext, useState } from "react";
+﻿// pagina del carrello e conferma ordine
+import { useContext, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "./Orders.css";
 import API_URL from "../config";
 
+// Componente Orders
 function Orders() {
+  // Contesti
   const { cart, removeFromCart, clearCart } = useContext(CartContext);
   const { user, authenticatedFetch } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const [message, setMessage] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Navigazione (cambio pagina dal codice)
+  const navigate = useNavigate();
+
+  // Stati 
+  const [message, setMessage] = useState(""); // Stato per messaggi all'utente
+  const [isSubmitting, setIsSubmitting] = useState(false); // Stato per indicare se l'invio è in corso
+
+  // Calcolo del totale del carrello
   const total = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
-    0
+    0 // sum = 0 all'inizio
   );
 
+  // Funzione per confermare l'ordine
   const handleConfirm = async () => {
+    // Non procedere se il carrello è vuoto o se è in corso un invio
     if (cart.length === 0 || isSubmitting) return;
 
+    // Controlla se l'utente è autenticato
     if (!user) {
       alert("Devi effettuare il login per prenotare.");
       navigate("/login");
       return;
     }
 
+    // Inizio invio
     setIsSubmitting(true);
 
+    // Costruzione dell'ordine da inviare al backend
     try {
+      // Crea l'oggetto ordine
       const order = {
         items: cart.map((item) => {
           return {
@@ -42,7 +56,9 @@ function Orders() {
         total,
       };
 
-      const response = await authenticatedFetch(`${API_URL}/api/orders`, {
+      // Invia l'ordine al backend con fetch autenticato
+      const response = await authenticatedFetch(`${API_URL}/api/orders`, { 
+        // in response viene salvata la risposta del server
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,16 +66,21 @@ function Orders() {
         body: JSON.stringify(order),
       });
 
+      // Legge la risposta come testo
       const responseText = await response.text();
+
+      // Prova a fare il parsing della risposta come JSON
       let data = null;
       if (responseText) {
         try {
-          data = JSON.parse(responseText);
+          // Converte la risposta in oggetto JS
+          data = JSON.parse(responseText); 
         } catch {
           data = null;
         }
       }
 
+      // Controlla lo stato della risposta
       if (response.ok) {
         setMessage("Prenotazione salvata con successo!");
         clearCart();
@@ -71,12 +92,9 @@ function Orders() {
             "Alcuni prodotti non sono più disponibili: " + missing.join(", ")
           );
           // Rimuovi dal carrello i prodotti che risultano mancanti
-          for (const ci of cart) {
-            if (
-              missing.includes(ci._id?.toString()) ||
-              missing.includes(ci.name)
-            ) {
-              removeFromCart(ci._id);
+          for (const item of cart) {
+            if (missing.includes(item._id?.toString()) || missing.includes(item.name)) {
+              removeFromCart(item._id);
             }
           }
         } else {
@@ -93,11 +111,14 @@ function Orders() {
       } else {
         setMessage("Impossibile contattare il server");
       }
-    } finally {
+    } 
+    // finally viene eseguito sempre, sia in caso di successo che di errore
+    finally {
       setIsSubmitting(false);
     }
   };
 
+  // Se il carrello è vuoto, mostra un messaggio
   if (cart.length === 0) {
     return (
       <div className="orders-container">
@@ -107,6 +128,7 @@ function Orders() {
     );
   }
 
+  // Renderizza il riepilogo dell'ordine
   return (
     <div className="orders-container">
       <h2>Riepilogo prenotazione</h2>
@@ -126,7 +148,7 @@ function Orders() {
                 )}
                 <div className="order-item-details">
                   <h4>{item.name}</h4>
-                  <p>Quantita: {item.quantity}</p>
+                  <p>Quantità: {item.quantity}</p>
                 </div>
               </div>
               <div className="order-item-right">
@@ -151,12 +173,14 @@ function Orders() {
         </button>
       </div>
 
+      {/* Spinner per l'invio dell'ordine */}
       {isSubmitting && (
-        <div className="confirm-spinner-overlay" aria-hidden="true">
+        <div className="confirm-spinner-overlay">
           <div className="confirm-spinner-lg" />
         </div>
       )}
 
+      {/* Messaggio di stato */}
       {message && <p style={{ color: "green", marginTop: "1rem" }}>{message}</p>}
     </div>
   );
