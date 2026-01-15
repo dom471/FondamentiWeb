@@ -95,7 +95,7 @@
   aspect-ratio: 4 / 3;
 }
 
-.button-cart button {
+.button-cart {
   background-color: #414722;
   color: white;
   border: none;
@@ -107,6 +107,6 @@
   max-width: 100%;
 }
 
-.button-cart button:hover {
+.button-cart:hover {
   background-color: #292d15;
 }
