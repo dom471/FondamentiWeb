@@ -24,15 +24,15 @@
 
 .products-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* tante colonne quante ne entrano, ognuna di almeno 220px */
   gap: 20px;
   padding: 10px;
-  justify-content: center;
-  align-items: start;
+  justify-content: center; /* contenuto della griglia allineato orizzontalmente al centro */
+  align-items: start; /* gli elementi della griglia all’inizio dell’asse verticale */
 }
 
 .cart-toast {
-  position: fixed;
+  position: fixed; /* resta nello stesso punto anche quando scrolli */
   background-color: #1a1a1a;
   color: #f7f3ef;
   padding: 8px 12px;
@@ -40,11 +40,11 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
   font-size: 0.95rem;
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0); /* stato iniziale dell'animazione*/
   transition: opacity 1s ease, transform 1s ease;
-  pointer-events: none;
+  pointer-events: none; /* non interferisce con il mouse */
   z-index: 2000;
-  white-space: nowrap;
+  white-space: nowrap; /* il testo non va a capo */
 }
 
 .cart-toast.fade-out {
@@ -59,7 +59,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: transform 0.2s;
-  overflow: hidden; 
+  overflow: hidden; /* nasconde il contenuto che esce dalla card */
 }
 
 .product-card:hover {
@@ -73,10 +73,10 @@
   overflow: hidden;
   font-size: 0.9rem;
   color: #333;
-  line-height: 1.4;
+  line-height: 1.4; /* altezza della riga del testo */
   text-align: center;
-  white-space: pre-line;
-  transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+  white-space: pre-line; /* il testo va a capo dove previsto */
+  transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease; 
 }
 
 .product-description.is-visible {
@@ -88,9 +88,9 @@
 
 .product-img {
   width: 100%;
-  object-fit: cover;
+  object-fit: cover; /* l'immagine copre tutto lo spazio disponibile */
   border-radius: 10px;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 4 / 3; /* rapporto larghezza/altezza */
 }
 
 .button-cart {
