@@ -8,7 +8,6 @@ import mongoose from "mongoose";
 import cors from "cors";
 import http from "http";
 import { Server } from "socket.io";
-import axios from "axios";
 import bcrypt from "bcryptjs"
 
 // Import delle rotte Express
