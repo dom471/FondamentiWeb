@@ -124,7 +124,7 @@ function Products() {
                 <img className="product-img" src={p.image} alt={p.name} />
               )}
               <h3>{p.name}</h3>
-              <p className="price">{"\u20AC"} {Number(p.price).toFixed(2)}</p>
+              <p>{"\u20AC"} {Number(p.price).toFixed(2)}</p>
               {p.description && (
                 <p
                   className={`product-description${

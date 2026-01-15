@@ -33,8 +33,6 @@
 
 .cart-toast {
   position: fixed;
-  left: 0;
-  top: 0;
   background-color: #1a1a1a;
   color: #f7f3ef;
   padding: 8px 12px;
