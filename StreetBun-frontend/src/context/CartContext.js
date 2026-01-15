@@ -13,7 +13,7 @@ export function CartProvider({ children }) {
   // Aggiunge un prodotto al carrello
   const addToCart = (product) => {
     // Controlla se il prodotto è già nel carrello
-    const existing = cart.find((item) => item._id === product._id);
+    const existing = cart.find((item) => item._id === product._id); // find restituisce il primo elemento che soddisfa la condizione
     if (existing) {
       setCart(
         cart.map((item) =>
