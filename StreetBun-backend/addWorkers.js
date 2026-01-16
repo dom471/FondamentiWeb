@@ -1,4 +1,4 @@
-// Script per aggiungere lavoratori al database MongoDB da console
+// Script per aggiungere lavoratori al database MongoDB da console, per avviare scrivere 'node addWorkers.js' quando si è all'interno della directory StreetBun-backend
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import readline from "readline";
