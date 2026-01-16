@@ -1,24 +1,35 @@
+// Pagina "Resoconto" del menù (solo accessibile ad admin)
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import io from "socket.io-client";
 import "./History.css";
 import API_URL from "../config";
 
+//Crea una connessione socket.io al backend
 const socket = io(`${API_URL}`);
 
+// Componente principale per la visualizzazione dello storico delle vendite
 function History() {
+  // Context di autenticazione
   const { user, getToken } = useContext(AuthContext);
-  const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [dailySummary, setDailySummary] = useState({});
+  // Stati
+  const [orders, setOrders] = useState([]); // lista di ordini
+  const [loading, setLoading] = useState(true); // indica se gli ordini stanno caricando
+  const [dailySummary, setDailySummary] = useState({}); // per il resoconto giornaliero
 
+  // Funzione per aggregare gli ordini per giorno
   const aggregateByDay = (arrayOrders) => {
     const summary = {};
-
+    // Itera su ogni ordine
     arrayOrders.forEach((order) => {
+      // Estrae la data dall'ordine
       const date = new Date(order.createdAt).toLocaleDateString();
-      if (!summary[date]) summary[date] = { products: {}, total: 0 };
-
+      if (!summary[date]) {
+        summary[date] = { 
+          products: {}, //sotto-oggetto
+          total: 0 
+        };
+      }
       order.items.forEach((item) => {
         if (!summary[date].products[item.name]) {
           summary[date].products[item.name] = {
@@ -26,22 +37,21 @@ function History() {
             totalPrice: 0,
           };
         }
+        // Aggiorna quantità e prezzo totale per ogni prodotto
         summary[date].products[item.name].quantity += item.quantity;
-        summary[date].products[item.name].totalPrice +=
-          item.price * item.quantity;
+        summary[date].products[item.name].totalPrice += (item.price * item.quantity);
       });
-
+      // Aggiorna il totale giornaliero
       summary[date].total += order.total;
     });
-
     return summary;
   };
 
+  // Caricamento storico ordini (quando cambia user o token)
   useEffect(() => {
     if (!user || user.role !== "owner") return;
-
+    // Recupera il token di autenticazione da AuthContext
     const token = getToken();
-
     fetch(`${API_URL}/api/orders/history`, {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -59,6 +69,7 @@ function History() {
       });
   }, [user, getToken]);
 
+  // Gestione nuovi ordini pagati in tempo reale tramite socket.io
   useEffect(() => {
     socket.on("newOrder", (order) => {
       if (order.status !== "paid") return;
@@ -68,7 +79,6 @@ function History() {
         return updated;
       });
     });
-
     return () => socket.off("newOrder");
   }, []);
 
