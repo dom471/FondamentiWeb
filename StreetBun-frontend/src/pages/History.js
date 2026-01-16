@@ -98,7 +98,7 @@ function History() {
   return (
     <div className="history-container">
       <h2>Storico vendite giornaliere</h2>
-
+      {/* Oggetto trasformato in un array di coppie*/}
       {Object.entries(dailySummary).map(([date, summary]) => (
         <div key={date} className="day-group">
           <h3 className="day-header">
