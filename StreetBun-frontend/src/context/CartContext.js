@@ -11,7 +11,7 @@ export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
 
   // Aggiunge un prodotto al carrello
-  const addToCart = useCallback((product) => {
+  const addToCart = (product) => {
     // Controlla se il prodotto è già nel carrello
     const existing = cart.find((item) => item._id === product._id); // find restituisce il primo elemento che soddisfa la condizione
     if (existing) {
@@ -28,7 +28,7 @@ export function CartProvider({ children }) {
     } else {
       setCart([...cart, { ...product, quantity: 1 }]);
     }
-  }, [cart]);
+  }
 
   // Sincronizza il carrello con i prodotti disponibili (rimuove quelli che non esistono più)
   const syncCartWithProducts = useCallback((products) => {
@@ -37,12 +37,12 @@ export function CartProvider({ children }) {
   }, []);
 
   // Rimuove un prodotto dal carrello
-  const removeFromCart = useCallback((id) => {
+  const removeFromCart = (id) => {
     setCart(cart.filter((item) => item._id !== id));
-  }, [cart]);
+  };
 
   // Svuota il carrello
-  const clearCart = useCallback(() => setCart([]), []);
+  const clearCart = () => setCart([]);
 
   // Fornisce il context ai componenti figli
   return (
