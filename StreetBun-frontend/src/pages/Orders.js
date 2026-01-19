@@ -1,4 +1,4 @@
-﻿// pagina del carrello e conferma ordine
+// pagina del carrello e conferma ordine
 import { useContext, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import { AuthContext } from "../context/AuthContext";
