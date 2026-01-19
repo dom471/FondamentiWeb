@@ -27,8 +27,8 @@ app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: true, limit: "5mb" }));
 
 // TELEGRAM BOT (webhook)
-const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+export const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+export const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 if (!BOT_TOKEN || !CHAT_ID) {
   console.error("Missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID in environment variables");
 }

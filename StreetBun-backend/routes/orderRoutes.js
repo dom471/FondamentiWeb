@@ -5,6 +5,7 @@ import Product from "../models/Product.js";
 import User from "../models/User.js";
 import { verifyToken } from "../middleware/authMiddleware.js";
 import axios from "axios";
+import { BOT_TOKEN, CHAT_ID }from "../server.js";
 
 const router = express.Router();
 
@@ -136,8 +137,6 @@ export default (io) => {
       res.status(201).json(savedOrder);
 
       // Preparazione e invio messaggio Telegram (in background)
-      const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-      const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
       const userName = savedOrder.userId?.name || savedOrder.userId?.email;
       const prodotti = itemsArray.map((i) => `${i.name} x ${i.quantity}`).join("\n");
       const text = `\n*Nuovo ordine ricevuto!*\nCliente: *${userName}*\nTotale: €${total.toFixed(
