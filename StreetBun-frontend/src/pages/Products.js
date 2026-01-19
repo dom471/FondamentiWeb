@@ -41,7 +41,7 @@ function Products() {
         console.error("Errore nel caricamento prodotti:", err);
         setLoading(false);
       });
-  }, []);
+  }, [syncCartWithProducts]);
 
   // Effetto per pulire i timeout quando si esce dalla pagina
   useEffect(() => {
