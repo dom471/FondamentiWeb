@@ -17,7 +17,7 @@ function Header() {
   // Ritorna il JSX del componente Header
   return (
     <header className="header">   
-      <h1><img src="/StreetBun-Icona.png"/>StreetBun</h1>
+      <h1><img src="/StreetBun-Icona.png" alt="StreetBun Icon"/>StreetBun</h1>
       <div className="header-actions">
         {user && (
           <span className="user-greeting">

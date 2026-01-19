@@ -25,7 +25,7 @@ function App() {
     <Router>
       <Header />
       <div className="background-container">
-        <img src="/StreetBun-Sfondo.png"/>
+        <img src="/StreetBun-Sfondo.png" alt="StreetBun Background" />
       </div>
       <main className="content">
         {/* definisce le route e i componenti associati */}
