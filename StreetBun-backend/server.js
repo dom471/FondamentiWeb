@@ -24,7 +24,7 @@ app.use(cors());
 
 //permettono a Express di parsare le richieste arrivate al server
 app.use(express.json({ limit: "5mb" }));
-app.use(express.urlencoded({ extended: true, limit: "5mb" }));
+app.use(express.urlencoded({ extended: true, limit: "5mb" })); //form HTML
 
 // TELEGRAM BOT (webhook)
 export const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -44,7 +44,7 @@ const io = new Server(server, {
 
 // Gestione delle connessioni Socket.IO
 io.on("connection", (socket) => {  //listener per ogni volta che un client si connette al server
-  console.log("Client connesso:", socket.id);
+  console.log("Client connesso:", socket.id);  //socket = client
   socket.on("disconnect", () => console.log("Client disconnesso:", socket.id)); //listener per la disconnessione
 });
 

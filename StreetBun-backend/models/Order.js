@@ -23,7 +23,7 @@ const orderSchema = new mongoose.Schema(
       default: "pending",
     },
   },
-  { timestamps: true }
+  { timestamps: true }  //aggiunge campo createdAt
 );
 
 // Creazione e esportazione del modello Order
