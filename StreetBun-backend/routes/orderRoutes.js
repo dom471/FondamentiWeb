@@ -12,7 +12,7 @@ const router = express.Router();
 // Funzione per risolvere il ruolo dell'utente
 const resolveRole = async (req) => {
   if (req.user?.role) return req.user.role;
-  const userId = req.user?.id || req.user?._id;
+  const userId = req.user?.id || req.user?._id; 
   if (!userId) return null;
   const dbUser = await User.findById(userId).select("role");
   return dbUser?.role || null;
@@ -28,9 +28,9 @@ router.get("/", verifyToken, async (req, res) => {
     }
     // Recupera tutti gli ordini, popolando i dettagli dell'utente
     const orders = await Order.find()
-      .populate("userId", "name email role")
+      .populate("userId", "name email role") // sostituisci userId con i dettagli dell'utente
       .sort({ createdAt: -1 });
-    res.json(orders);
+    res.json(orders); 
   } 
   catch (err) {
     console.error("Errore caricamento ordini:", err);
@@ -64,7 +64,7 @@ router.put("/:id/paid", verifyToken, async (req, res) => {
     const order = await Order.findByIdAndUpdate(
       req.params.id,
       { status: "paid" },
-      { new: true }
+      { new: true } // restituisce il documento aggiornato
     );
     res.json(order);
   } 
@@ -94,7 +94,7 @@ export default (io) => {
   router.post("/", verifyToken, async (req, res) => {
     try {
       const { items, total } = req.body;
-      const userId = req.user?.id || req.user?._id || req.body.userId;
+      const userId = req.user?.id || req.user?._id; // Ottieni l'ID utente dal token verificato
 
       if (!userId) {
         return res
@@ -105,18 +105,18 @@ export default (io) => {
       const itemsArray = Array.isArray(items) ? items : [];
       const productIds = itemsArray
         .map((it) => it.productId)
-        .filter(Boolean)
+        .filter(Boolean) // rimuove valori nulli/undefined
         .map((id) => id.toString());
 
       let missingProducts = [];
       if (productIds.length > 0) {
         const foundProducts = await Product.find({ _id: { $in: productIds } }).select(
-          "_id"
+          "_id" //array di documenti con selezionato solo l'_id
         );
         const foundIds = new Set(foundProducts.map((p) => p._id.toString()));
         missingProducts = itemsArray
-          .filter((it) => it.productId && !foundIds.has(it.productId.toString()))
-          .map((it) => it.name || it.productId);
+          .filter((it) => it.productId && !foundIds.has(it.productId.toString())) 
+          .map((it) => it.name || it.productId); 
       }
 
       if (missingProducts.length > 0) {
@@ -131,7 +131,7 @@ export default (io) => {
       await savedOrder.populate("userId", "name email role");
 
       // Notifica realtime ai client connessi
-      if (io && typeof io.emit === "function") {
+      if (io) { 
         io.emit("newOrder", savedOrder);
       }
       res.status(201).json(savedOrder);
