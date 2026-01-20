@@ -10,14 +10,18 @@ export const AuthProvider = ({ children }) => {
   // Stato per memorizzare l’utente autenticato
   const [user, setUser] = useState(null);
 
+  // Funzione per ottenere il token corrente in base al ruolo
+  const getToken = () => {
+    if (user?.role === "owner") return localStorage.getItem("token_owner");
+    if (user?.role === "worker") return localStorage.getItem("token_worker");
+    if (user?.role === "customer") return localStorage.getItem("token_customer");
+    return null;
+  };
+
   // AUTOLOGIN: controlla se c’è un token salvato nel localStorage e decodificalo
   useEffect(() => {
     // Controlla i token per tutti i ruoli
-    const ownerToken = localStorage.getItem("token_owner");
-    const workerToken = localStorage.getItem("token_worker");
-    const customerToken = localStorage.getItem("token_customer");
-
-    const token = ownerToken || workerToken || customerToken;
+    const token = getToken();
 
     if (!token || token === "undefined" || token === "null") {
       console.log("Nessun token valido trovato");
@@ -27,7 +31,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const base64Url = token.split(".")[1];
       if (!base64Url) return;
-      const decoded = JSON.parse(atob(base64Url));
+      const decoded = JSON.parse(atob(base64Url)); // base64 --> JSON --> Oggetto JS
       setUser(decoded);
       console.log("Login automatico:", decoded);
     } catch (err) {
@@ -67,14 +71,6 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem("token_customer");
     }
     setUser(null);
-  };
-
-  // Funzione per ottenere il token corrente in base al ruolo
-  const getToken = () => {
-    if (user?.role === "owner") return localStorage.getItem("token_owner");
-    if (user?.role === "worker") return localStorage.getItem("token_worker");
-    if (user?.role === "customer") return localStorage.getItem("token_customer");
-    return null;
   };
 
   // Funzione per effettuare fetch autenticate
