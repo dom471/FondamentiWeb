@@ -19,7 +19,8 @@ import { AuthContext } from "./context/AuthContext";
 function App() {
   // ottiene l’utente autenticato dal contesto
   const { user } = useContext(AuthContext);
-  const canViewHistory = user?.role === "owner";
+  const canViewAdmin = user?.role === "owner";
+  const canViewRecipes = user?.role === "worker";
   // definisce le route dell’applicazione
   return (
     <Router>
@@ -37,11 +38,20 @@ function App() {
           <Route path="/orders" element={<Orders />} />
           <Route
             path="/history"
-            element={canViewHistory ? <History /> : <Navigate to="/" replace />}
+            element={canViewAdmin ? <History /> : <Navigate to="/" replace />}
           />
-          <Route path="/admin" element={<AdminProducts />} />
-          <Route path="/admin/orders" element={<AdminOrders />} />
-          <Route path="/ricette" element={<Recipes />} />
+          <Route 
+            path="/admin" 
+            element={canViewAdmin ? <AdminProducts /> : <Navigate to="/" replace />}
+          />
+          <Route 
+          path="/admin/orders" 
+          element={(canViewAdmin || canViewRecipes) ? <AdminOrders /> : <Navigate to="/" replace />}
+          />
+          <Route 
+          path="/ricette" 
+            element={canViewRecipes ? <Recipes /> : <Navigate to="/" replace />}
+          />
         </Routes>
       </main>
       <Footer />
