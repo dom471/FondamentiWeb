@@ -131,24 +131,23 @@ export default (io) => {
       await savedOrder.populate("userId", "name email role");
 
       // Notifica realtime ai client connessi
-      if (io) { 
-        io.emit("newOrder", savedOrder);
+      if (io) {
+        io.emit("newOrder", savedOrder); // Emissione evento a tutti i client connessi
       }
       res.status(201).json(savedOrder);
 
       // Preparazione e invio messaggio Telegram (in background)
       const userName = savedOrder.userId?.name || savedOrder.userId?.email;
       const prodotti = itemsArray.map((i) => `${i.name} x ${i.quantity}`).join("\n");
-      const text = `\n*Nuovo ordine ricevuto!*\nCliente: *${userName}*\nTotale: €${total.toFixed(
-        2
-      )}\nProdotti:\n  ${prodotti}\n  ${new Date().toLocaleString()}\n`;
+      const text = `\n*Nuovo ordine ricevuto!*\nCliente: *${userName}*\nTotale: €${total.toFixed(2)}
+      \nProdotti:\n  ${prodotti}\n  ${new Date().toLocaleString()}\n`;
 
       if (BOT_TOKEN && CHAT_ID) {
-        axios
+        axios 
           .post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
             chat_id: CHAT_ID,
             text,
-            parse_mode: "Markdown",
+            parse_mode: "Markdown", // per formattazione in grassetto
           })
           .then(() => {
             console.log("Notifica Telegram inviata con successo!");
