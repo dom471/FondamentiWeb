@@ -36,6 +36,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/products" element={<Products />} />
           <Route path="/orders" element={<Orders />} />
+          {/* protezione accesso pagine tramite URL */}
           <Route
             path="/history"
             element={canViewAdmin ? <History /> : <Navigate to="/" replace />}
