@@ -38,7 +38,7 @@ function AdminProducts() {
       setNewProduct((prev) => ({ ...prev, image: result }));
       setImagePreview(result);
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(file); // Legge il file come Data URL (base64)
   };
 
   // Reset form
