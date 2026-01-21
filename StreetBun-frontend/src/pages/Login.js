@@ -29,7 +29,7 @@ function Login() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, role }),
       });
-      // Risposta in formato JSON
+      
       const data = await res.json();
 
       // Se il login ha successo

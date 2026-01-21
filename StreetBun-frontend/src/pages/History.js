@@ -82,13 +82,6 @@ function History() {
     return () => socket.off("newOrder");
   }, []);
 
-  if (!user)
-    return (
-      <p className="status-message">
-        Devi effettuare il login per vedere lo storico.
-      </p>
-    );
-
   if (loading)
     return <p className="status-message">Caricamento storico...</p>;
 

@@ -27,7 +27,7 @@ function Products() {
         const normalized = data.map((product) => {
           return {
             ...product,
-            image: product.image || "",
+            image: product.image || "", // Imposta l'immagine come stringa vuota se non presente
           };
         });
         // Salva i prodotti nello stato
@@ -65,7 +65,7 @@ function Products() {
     setCartToast({ 
       x: clickX, 
       y: clickY, 
-      fading: false 
+      fading: false // non sta ancora scomparendo
     });
     // Pulisce eventuali timeout esistenti
     if (hideToastTimeoutRef.current) {

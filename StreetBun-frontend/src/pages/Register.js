@@ -27,7 +27,7 @@ function Register() {
 
       // Se la registrazione ha successo
       if (res.ok) { //res.ok se lo status HTTP è tra 200 e 299
-        setMessage("Registrazione completata con successo!");
+        setMessage("Registrazione completata con successo! Puoi effettuare il login.");
         setName("");
         setEmail("");
         setPassword("");
