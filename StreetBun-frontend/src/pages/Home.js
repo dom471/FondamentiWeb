@@ -92,7 +92,7 @@ function Home() {
         <Grid container spacing={4} justifyContent="center">
           {products.map((item) => (
             <Grid item key={item.name}>
-              <Card sx={{height: "100%", display: "flex", flexDirection: "column",transition: "transform 0.2s", "&:hover": { transform: "scale(1.05)" }, borderRadius: "16px", boxShadow: 3, }}>
+              <Card sx={{height: "100%", display: "flex", flexDirection: "column", transition: "transform 0.2s", "&:hover": { transform: "scale(1.05)" }, borderRadius: "16px", boxShadow: 3, }}>
                 <CardMedia component="img" height="200" image={item.image} alt={item.name}/>
                 <CardContent>
                   <Typography variant="h6" align="center">
