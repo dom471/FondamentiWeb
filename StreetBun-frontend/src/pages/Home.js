@@ -49,7 +49,7 @@ function Home() {
   };
 
   return (
-    <Box sx={{ overflow: "hidden" }}>
+    
       <Container sx={{ position: "relative", py: 5 }}>
         <Box
           sx={{
@@ -133,7 +133,7 @@ function Home() {
           </Box>
         </Box>
       </Container>
-    </Box>
+    
   );
 }
 
