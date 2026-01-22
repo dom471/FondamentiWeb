@@ -6,7 +6,7 @@ import "./AdminOrders.css";
 import API_URL from "../config";
 
 // Crea una connessione socket.io al backend
-const socket = io(`${API_URL}`); 
+const socket = io(`${API_URL}`);  //socket = client, io = server
 
 // Componente principale per la gestione delle prenotazioni
 function AdminOrders() {
