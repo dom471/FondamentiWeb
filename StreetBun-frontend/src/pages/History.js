@@ -79,7 +79,7 @@ function History() {
         return updated;
       });
     });
-    return () => socket.off("newOrder");
+    return () => socket.off("paidOrder");
   }, []);
 
   if (loading)
