@@ -1,12 +1,8 @@
 // Pagina "Resoconto" del menù (solo accessibile ad admin)
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import io from "socket.io-client";
 import "./History.css";
 import API_URL from "../config";
-
-//Crea una connessione socket.io al backend
-const socket = io(`${API_URL}`);
 
 // Componente principale per la visualizzazione dello storico delle vendite
 function History() {
@@ -69,6 +65,7 @@ function History() {
       });
   }, [user, getToken]);
 
+<<<<<<< Updated upstream
   // Gestione nuovi ordini pagati in tempo reale tramite socket.io
   useEffect(() => {
     socket.on("newOrder", (order) => {
@@ -82,6 +79,8 @@ function History() {
     return () => socket.off("paidOrder");
   }, []);
 
+=======
+>>>>>>> Stashed changes
   if (loading)
     return <p className="status-message">Caricamento storico...</p>;
 
