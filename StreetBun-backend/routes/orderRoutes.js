@@ -66,8 +66,11 @@ router.put("/:id/paid", verifyToken, async (req, res) => {
       { status: "paid" },
       { new: true } // restituisce il documento aggiornato
     );
+    io.emit("paidOrder", order);
     res.json(order);
+    
   } 
+
   catch (err) {
     res.status(500).json({ error: "Errore durante l'aggiornamento dell'ordine..." });
   }
