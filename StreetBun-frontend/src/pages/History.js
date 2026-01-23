@@ -65,22 +65,6 @@ function History() {
       });
   }, [user, getToken]);
 
-<<<<<<< Updated upstream
-  // Gestione nuovi ordini pagati in tempo reale tramite socket.io
-  useEffect(() => {
-    socket.on("newOrder", (order) => {
-      if (order.status !== "paid") return;
-      setOrders((prev) => {
-        const updated = [order, ...prev];
-        setDailySummary(aggregateByDay(updated));
-        return updated;
-      });
-    });
-    return () => socket.off("paidOrder");
-  }, []);
-
-=======
->>>>>>> Stashed changes
   if (loading)
     return <p className="status-message">Caricamento storico...</p>;
 
